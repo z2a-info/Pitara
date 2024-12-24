@@ -1,4 +1,5 @@
 @echo off
+REM Test direct commit
 set PITARA_HOME=C:\Users\NarenDev\DATA\WorkSpace\InstaFind
 rd /s /q %PITARA_HOME%\Pitara\PitaraApp\bin
 rd /s /q %PITARA_HOME%\PackageContents
