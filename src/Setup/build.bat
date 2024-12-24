@@ -1,6 +1,6 @@
 @echo off
 REM hi and hello - test
-REM test24
+REM test24-1
 set PITARA_HOME=C:\Users\NarenDev\DATA\WorkSpace\temp2\Pitara\src
 rd /s /q %PITARA_HOME%\Pitara\PitaraApp\bin
 rd /s /q %PITARA_HOME%\PackageContents
