@@ -1,4 +1,4 @@
-﻿// using Sdl.MultiSelectComboBox.API;
+﻿using Sdl.MultiSelectComboBox.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pitara.Services
 {
-    internal class KeywordFilterService // : // IFilterService
+    internal class KeywordFilterService : IFilterService
     {
         private string searchText;
 

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControllerProject", "Contro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModelProject", "ViewModelProject\ViewModelProject.csproj", "{E1E99970-95F0-459E-B27D-14A9788AB747}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sdl.MultiSelectComboBox", "Auto complete\Sdl.MultiSelectComboBox\Sdl.MultiSelectComboBox.csproj", "{DD27B773-8E46-4337-978E-3D9904A74967}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PiataraApp", "PitaraApp\PiataraApp.csproj", "{CEAF8E63-66D4-4C3D-8245-2DC1EE18F657}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonProject", "CommonProject\CommonProject.csproj", "{986F228A-0A04-4F80-9735-CC93B56A4CA0}"

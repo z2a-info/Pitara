@@ -49,6 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Auto complete\Sdl.MultiSelectComboBox\Sdl.MultiSelectComboBox.csproj" />
     <ProjectReference Include="..\ControllerProject\ControllerProject.csproj" />
   </ItemGroup>
   <ItemGroup>
