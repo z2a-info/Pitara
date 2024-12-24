@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <!--<Nullable>enable</Nullable>-->
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommonProject\CommonProject.csproj" />
+    <ProjectReference Include="..\ViewModelProject\ViewModelProject.csproj" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0.0" />
+  <PackageReference Include="System.Drawing.Common" Version="7.0.0.0" />
+  <PackageReference Include="System.Management" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\CommonProjectDLL\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="MetadataExtractor">
+      <HintPath>..\CommonProjectDLL\MetadataExtractor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\CommonProjectDLL\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing.Common">
+      <HintPath>..\CommonProjectDLL\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive">
+      <HintPath>..\CommonProjectDLL\System.Reactive.dll</HintPath>
+    </Reference>
+    <Reference Include="XmpCore">
+      <HintPath>..\CommonProjectDLL\XmpCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

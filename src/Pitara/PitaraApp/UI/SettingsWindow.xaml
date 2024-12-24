@@ -1,0 +1,100 @@
+﻿<Window x:Class="PitaraLuceneSearch.UI.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PitaraLuceneSearch.UI"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        Title="Pitara Settings" MaxHeight="470" MinHeight="450"  MaxWidth="565" MinWidth="565">
+    <!--<Window.Resources>
+        <local:RadioBoolToIntConverter x:Key="radioBoolToIntConverter" />
+    </Window.Resources>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250" />
+            <RowDefinition Height="450" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="20" Grid.RowSpan="3" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal"  >
+                    <Label>Select folders where you keep photos -</Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Visibility="Collapsed" >
+                    <Label>Scan photos from - </Label>
+                    <RadioButton Margin="5" GroupName="PhotoGroup" Click="RadioButton_Click" IsChecked="{Binding IsEntirePC, Mode=TwoWay}" Content="Entire PC" Name="EntirePCRadioButton"></RadioButton>
+                    <RadioButton Margin="5" GroupName="PhotoGroup" Click="RadioButton_Click_1" IsChecked="{Binding !IsEntirePC, Mode=TwoWay}" Content="Selected Folders" Name="SelectedFolderRadioButton" ></RadioButton>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" >
+                    <ListBox SelectionMode="Extended"  Width="400" Height="130" Name="PhotoFoldersListBox" SelectionChanged="PhotoFoldersListBox_SelectionChanged" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                        <Button Height="25" Width="90" Margin="0,0,0,5" Name="AddPhotoFolderButton" Click="AddPhotoFolderButton_Click">Add..</Button >
+                        <Button Height="25" Width="90" Name="RemovePhotoFolderButton" Click="RemovePhotoFolderButton_Click">Remove</Button>
+                        <Separator Height="45"></Separator>
+                        <Button Height="25" Width="90" Name="ButtonMore" Click="ButtonMore_Click" >+ Advance</Button>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <ScrollViewer Name="MoreScroll" VerticalScrollBarVisibility="Hidden" Visibility="Visible">
+                <StackPanel>
+                    <!--<StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                        <Label Width="100" >Index Folder:</Label>
+                        <TextBox VerticalContentAlignment="Center" Name="IndexFolderTextBox" IsReadOnly="True" Text="{Binding IndexFolder, Mode=TwoWay}" Width="300" Margin="0,0,10,0"></TextBox>
+                        <Button Click="Button_Click"  Width="90"  >Select..</Button>
+                    </StackPanel>-->
+                    <StackPanel Orientation="Horizontal" >
+                        <Label Width="100" >Export Location:</Label>
+                        <TextBox VerticalContentAlignment="Center" Name="BucketFolderTextBox" IsReadOnly="True" Text="{Binding BucketFolder, Mode=TwoWay}" Width="300" Margin="0,0,10,0"></TextBox>
+                        <Button Click="Button_Click_1" Width="90">Select..</Button>
+                    </StackPanel>
+                    <!--<StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                        <Label Width="100" >Delete Folder:</Label>
+                        <TextBox VerticalContentAlignment="Center" Name="DeleteFolderTextBox" IsReadOnly="True" Text="{Binding DeletedFolder, Mode=TwoWay}" Width="300" Margin="0,0,10,0"></TextBox>
+                        <Button Click="Button_Click_3" Width="90">Select..</Button>
+                    </StackPanel>-->
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="2">
+                        <StackPanel Orientation="Horizontal" >
+                            <Label>Exclude folders -</Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" >
+                            <ListBox Width="400" Height="130" Name="ExcludeFoldersListBox" SelectionChanged="ExcludeFoldersListBox_SelectionChanged">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                                <Button Height="25" Width="90" Margin="0,0,0,5" Name="AddExclusionFolder" Click="AddExclusionFolder_Click">Add..</Button >
+                                <Button Name="RemoveFromExcludeFolder" Height="25" Width="90" Click="Button_Click_2" >Remove</Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+            <StackPanel Orientation="Horizontal" Grid.Row="2"  Margin="0,5,0,0">
+                <Button Height="30" Name="btnSaveData" Click="btnSaveData_Click" Margin="0,0,10,0" Width="90">
+                    <Label>Ok</Label>
+                </Button>
+                <Button Height="30"  Name="btnCancel" Width="90" Click="btnCancelData_Click">
+                    <Label>Cancel</Label>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

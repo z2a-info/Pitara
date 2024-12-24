@@ -1,0 +1,1 @@
+winscp.com /ini=nul /script=test-winscpScript.txt

@@ -1,0 +1,2512 @@
+﻿<Window
+    x:Class="Pitara.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:PitaraApp.Controls"
+    xmlns:converter="clr-namespace:PitaraApp.Converter"
+    xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+    xmlns:local="clr-namespace:Pitara"
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    xmlns:sdl="http://schemas.sdl.com/xaml"
+    Title="Pitara"
+    Width="826.657"
+    Height="558.287"
+    MinWidth="200"
+    MinHeight="200"
+    WindowState="Maximized">
+
+    <Window.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="#007ACC" />
+            <Setter Property="BorderBrush" Value="#007ACC" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="0,0" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                                                    x:Name="border"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="100">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Opacity" Value=".5" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#00344F" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Geometry x:Key="DateIcon">
+            M107,154.006845 C107,153.45078 107.449949,153 108.006845,153 L119.993155,153 C120.54922,153 121,153.449949 121,154.006845 L121,165.993155 C121,166.54922 120.550051,167 119.993155,167 L108.006845,167 C107.45078,167 107,166.550051 107,165.993155 L107,154.006845 Z M108,157 L120,157 L120,166 L108,166 L108,157 Z M116.5,163.5 L116.5,159.5 L115.757485,159.5 L114.5,160.765367 L114.98503,161.275112 L115.649701,160.597451 L115.649701,163.5 L116.5,163.5 Z M112.5,163.5 C113.412548,163.5 114,163.029753 114,162.362119 C114,161.781567 113.498099,161.473875 113.110266,161.433237 C113.532319,161.357765 113.942966,161.038462 113.942966,160.550798 C113.942966,159.906386 113.395437,159.5 112.505703,159.5 C111.838403,159.5 111.359316,159.761248 111.051331,160.115385 L111.456274,160.632075 C111.724335,160.370827 112.055133,160.231495 112.425856,160.231495 C112.819392,160.231495 113.13308,160.382438 113.13308,160.690131 C113.13308,160.974601 112.847909,161.102322 112.425856,161.102322 C112.28327,161.102322 112.020913,161.102322 111.952471,161.096517 L111.952471,161.839623 C112.009506,161.833817 112.26616,161.828012 112.425856,161.828012 C112.956274,161.828012 113.190114,161.967344 113.190114,162.275036 C113.190114,162.565312 112.93346,162.768505 112.471483,162.768505 C112.10076,162.768505 111.684411,162.605951 111.427757,162.327286 L111,162.87881 C111.279468,163.227141 111.804183,163.5 112.5,163.5 Z M110,152.5 C110,152.223858 110.214035,152 110.504684,152 L111.495316,152 C111.774045,152 112,152.231934 112,152.5 L112,153 L110,153 L110,152.5 Z M116,152.5 C116,152.223858 116.214035,152 116.504684,152 L117.495316,152 C117.774045,152 118,152.231934 118,152.5 L118,153 L116,153 L116,152.5 Z
+        </Geometry>
+        <Style x:Key="WaterMarkTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="VerticalContentAlignment" Value="Top" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <Border
+                                Background="White"
+                                BorderBrush="#FF7D8683"
+                                BorderThickness="1" />
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="5,0,0,0" />
+                            <Label
+                                x:Name="WaterMarkLabel"
+                                Margin="5,0,0,0"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Tag}"
+                                FontFamily="Arial"
+                                FontSize="{TemplateBinding FontSize}"
+                                Foreground="Gray"
+                                IsHitTestVisible="False"
+                                Visibility="Collapsed" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Text" Value="" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="WaterMarkLabel" Property="Visibility" Value="Visible" />
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="DimGray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <RoutedUICommand x:Key="CopyCommand" Text="Build">
+            <RoutedUICommand.InputGestures>
+                <KeyGesture>CTRL+C</KeyGesture>
+            </RoutedUICommand.InputGestures>
+        </RoutedUICommand>
+        <RoutedUICommand x:Key="DeleteCommand" Text="Build">
+            <RoutedUICommand.InputGestures>
+                <KeyGesture>DEL</KeyGesture>
+            </RoutedUICommand.InputGestures>
+        </RoutedUICommand>
+        <converter:FirstLetterConverter x:Key="firstLetterConverter" />
+        <converter:FirstOccurrenceIntegerConverter x:Key="firstOccurrenceIntegerConverter" />
+        <local:ImageConverterFromPath x:Key="ImageConverterFromPath" />
+        <local:ImageConverterFromString x:Key="ImageConverterFromString" />
+
+        <!--<BitmapImage x:Key="searchHint" UriSource="pack://application:,,,/Images/SearchHin.png" />-->
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+        <CollectionViewSource x:Key="HeightViewSource" Source="{Binding HeightSource}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Height" />
+            </CollectionViewSource.SortDescriptions>
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Height" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="customeKeyWordSource" Source="{Binding CustomeKeyWordSource}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="QueryDisplayName" />
+            </CollectionViewSource.SortDescriptions>
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription Converter="{StaticResource firstLetterConverter}" PropertyName="QueryDisplayName" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+
+
+        <CollectionViewSource x:Key="locationSource" Source="{Binding LocationSource}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="QueryDisplayName" />
+            </CollectionViewSource.SortDescriptions>
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription Converter="{StaticResource firstLetterConverter}" PropertyName="QueryDisplayName" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+
+
+        <CollectionViewSource x:Key="folderFileNameSource" Source="{Binding FolderFileNameSource}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="QueryDisplayName" />
+            </CollectionViewSource.SortDescriptions>
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription Converter="{StaticResource firstLetterConverter}" PropertyName="QueryDisplayName" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="favoriteViewSource" Source="{Binding FavoriteViewSource}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="QueryDisplayName" />
+            </CollectionViewSource.SortDescriptions>
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription Converter="{StaticResource firstLetterConverter}" PropertyName="QueryDisplayName" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="miscKeyWordSource" Source="{Binding MiscKeywordSource}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="QueryDisplayName" />
+            </CollectionViewSource.SortDescriptions>
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription Converter="{StaticResource firstLetterConverter}" PropertyName="QueryDisplayName" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource CopyCommand}" Executed="CopyCommandBinding_Executed"/>
+        <CommandBinding Command="{StaticResource DeleteCommand}" Executed="DeleteConmmandBinding_Executed"/>
+
+    </Window.CommandBindings>
+    <DockPanel Background="LightGray">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Click="MenuItem_Click_4" Header="_Settings">
+                <!--<MenuItem Header="_Settings" Click="MenuItem_Click_4" />-->
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Click="MenuItem_Help" Header="_Help" />
+                <MenuItem Click="MenuItem_Click_1" Header="_Logs" />
+                <MenuItem Click="MenuItem_Click_3" Header="_About" />
+            </MenuItem>
+            <!--<MenuItem Header="_Tools">
+                <MenuItem Header="_Isolate Duplicate" Click="MenuItem_Click" />
+                <MenuItem Header="_Reset Index" Click="MenuItem_Click_2"/>
+            </MenuItem>-->
+            <!--<MenuItem Header="_License">
+                <MenuItem Click="MenuItem_Click_5" Header="_Purchase License" />
+                <MenuItem Click="MenuItem_Click_6" Header="_Register License" />
+            </MenuItem>-->
+        </Menu>
+
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TabControl
+                Name="MainTabControl"
+                Grid.Row="0"
+                Background="White"
+                BorderThickness="0">
+                <TabItem
+                    ToolTip="Search my photos"
+                    Height="25"
+                    MinWidth="80"
+                    VerticalAlignment="Top"
+                    Header="Search">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75*" />
+                            <ColumnDefinition Width="398*" />
+                            <ColumnDefinition Width="350*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="4" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <StackPanel
+                            Grid.Row="0"
+                            Grid.ColumnSpan="3"
+                            Width="Auto"
+                            Background="LightGray"
+                            Orientation="Horizontal">
+                            <Button
+                                Width="40"
+                                Height="30"
+                                VerticalContentAlignment="Center"
+                                Background="LightGreen"
+                                Click="Button_Click"
+                                IsEnabled="{Binding IsBackButtonEnabled}">
+                                <TextBlock FontSize="18"><Bold>⮜</Bold></TextBlock>
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="10" />
+                                    </Style>
+                                </Button.Resources>
+                                <Button.ToolTip>
+                                    <TextBlock>Click to go back to previous search.</TextBlock>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button
+                                Width="40"
+                                Height="30"
+                                Background="LightGreen"
+                                Click="Button_Click_1"
+                                IsEnabled="{Binding IsFrontButtonEnabled}">
+                                <TextBlock FontSize="18"><Bold>⮞</Bold></TextBlock>
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="10" />
+                                    </Style>
+                                </Button.Resources>
+                                <Button.ToolTip>
+                                    <TextBlock>Click to go to next search.</TextBlock>
+                                </Button.ToolTip>
+
+                            </Button>
+                            <!--<Label Content="Enter Search Term"
+                   Width="Auto"
+                   FontWeight="Bold"
+                   VerticalAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   Margin="5"/>-->
+
+                            <!--<sdl:MultiSelectComboBox
+                                Name="MultiSelectEditBox"
+                                Grid.Column="2"
+                                Grid.ColumnSpan="3"
+                                Width="600"
+                                ToolTip="Select the words for search"
+                                MinHeight="35"
+                                Margin="5 0"
+                                Padding="11 3 5 3"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                DropdownItemTemplate="{StaticResource MultiSelectComboBox.Dropdown.ListBox.ItemTemplate}"
+                                EnableBatchSelection="True"
+                                EnableFiltering="True"
+                                EnableGrouping="False"
+                                FilterService="{StaticResource keywordFilterService}"
+                                FontSize="14"
+                                ItemsSource="{Binding SearchSuggestions}"
+                                KeyDown="SearchEditBox_KeyDown"
+                                SelectedItemTemplate="{StaticResource MultiSelectComboBox.SelectedItems.ItemTemplate}"
+                                SelectedItems="{Binding KeywordHistory}"
+                                SelectedItemsChanged="KeyWordAutoComplete_SelectedItemsChanged">
+
+
+                                <sdl:MultiSelectComboBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="10" />
+                                    </Style>
+                                </sdl:MultiSelectComboBox.Resources>
+                            </sdl:MultiSelectComboBox>-->
+                            <TextBox
+                                Name="SearchEditBox"
+                                Style="{StaticResource WaterMarkTextBoxStyle}"
+                                Tag="From 10 years in July on Saturday night"
+
+                                Grid.Column="2"
+                                Grid.ColumnSpan="3"
+                                Width="600"
+                                ToolTip="Write search term like: from 2002 in winter on Sunday"
+                                Height="30"
+                                Margin="5 0"
+                                Padding="5 3 5 3"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                FontSize="14"
+                                KeyDown="SearchEditBox_KeyDown"
+                                SelectionChanged="SearchEditBox_SelectionChanged"
+                                Text="{Binding SearchTerm}"
+
+                             >
+                                <TextBox.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="8" />
+                                    </Style>
+                                </TextBox.Resources>
+
+                            </TextBox>
+
+
+                            <Button
+                                Name="SearchButton"
+                                Width="35"
+                                Height="30"
+                                Margin="5"
+                                VerticalAlignment="Center"
+                                Background="LightBlue"
+                                Click="SearchButton_Click"
+                                Content="Go"
+                                IsDefault="False">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="10" />
+                                    </Style>
+                                </Button.Resources>
+                                <Button.ToolTip>
+                                    <TextBlock>Click to search.</TextBlock>
+                                </Button.ToolTip>
+                            </Button>
+                            <Button
+                                Name="AddToFavoriteButton"
+                                Width="35"
+                                Height="30"
+                                Margin="5"
+                                VerticalAlignment="Center"
+                                Background="Pink"
+                                Click="AddToFavoriteButton_Click"
+                                Foreground="Red"
+                                IsDefault="False"
+                                IsEnabled="{Binding IsFavoriteButtonEnabled}">
+                                <TextBlock FontSize="18"><Bold>❤</Bold></TextBlock>
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="10" />
+                                    </Style>
+                                </Button.Resources>
+                                <Button.ToolTip>
+                                    <TextBlock>Placeholder tool tip</TextBlock>
+                                </Button.ToolTip>
+
+                            </Button>
+                            <Label
+                                Margin="0 5"
+                                Content="{Binding Path=TestVersion}"
+                                Foreground="Red" />
+
+                        </StackPanel>
+
+                        <!--<TextBox AcceptsReturn="False"  IsReadOnly="true" Text="{Binding UserStatusAtTop}" Grid.Row="2" />-->
+
+
+                        <StackPanel
+                            Grid.Row="2"
+                            Grid.RowSpan="3"
+                            Grid.ColumnSpan="3"
+                            Orientation="Horizontal">
+                            <Label
+                                Width="Auto"
+                                Height="50"
+                                VerticalAlignment="Top"
+                                VerticalContentAlignment="Top"
+                                Content="{Binding UserStatusAtTop}"
+                                FontSize="13"
+                                FontWeight="Bold" />
+                            <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="3"
+                                HorizontalAlignment="Left"
+                                Visibility="{Binding Path=MoreResults.IsVisible, Converter={StaticResource BoolToVis}}">
+                                <Hyperlink
+                                    Name="MoreResults"
+                                    IsEnabled="{Binding MoreResults.IsEnabled}"
+                                    NavigateUri="{Binding MoreResults.QueryString}"
+                                    RequestNavigate="Hyperlink_RequestNavigate">
+                                    <TextBlock
+                                        FontSize="14"
+                                        FontWeight="Bold"
+                                        Text="{Binding MoreResults.QueryDisplayName}">
+                                            <TextBlock.ToolTip>
+                                                <ToolTip Visibility="Visible">
+                                                    <TextBlock Text="{Binding MoreResults.QueryDisplayName}" />
+                                                </ToolTip>
+                                            </TextBlock.ToolTip>
+                                    </TextBlock>
+                                </Hyperlink>
+                            </TextBlock>
+                            <TextBlock
+                                Margin="5, 3"
+                                HorizontalAlignment="Left"
+                                Visibility="{Binding Path=ImFeelingLucky.IsVisible, Converter={StaticResource BoolToVis}}">
+                                <Hyperlink
+                                    Name="ImFeelingLucky"
+                                    IsEnabled="{Binding ImFeelingLucky.IsEnabled}"
+                                    NavigateUri="{Binding ImFeelingLucky.QueryString}"
+                                    RequestNavigate="Hyperlink_RequestNavigate">
+                                    <TextBlock
+                                        FontSize="14"
+                                        FontWeight="Bold"
+                                        Text="{Binding ImFeelingLucky.QueryDisplayName}">
+                                            <TextBlock.ToolTip>
+                                                <ToolTip Visibility="Visible">
+                                                    <TextBlock Text="{Binding ImFeelingLucky.QueryDisplayName}" />
+                                                </ToolTip>
+                                            </TextBlock.ToolTip>
+                                    </TextBlock>
+                                </Hyperlink>
+                            </TextBlock>
+                             <!--<TextBlock
+                                Margin="5"
+                                HorizontalAlignment="Left"
+                                Text="{Binding SearchTermAutoCorrected}">
+                             </TextBlock>-->
+                                
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <DockPanel Grid.Row="3" Grid.ColumnSpan="3">
+                            <ListView
+                                Name="Thumbnails"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                BorderThickness="0"
+                                DockPanel.Dock="Left"
+                                ItemsSource="{Binding Photos}"
+                                Loaded="ListView_Loaded"
+                                MouseDoubleClick="Thumbnails_MouseDoubleClick"
+                                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                SelectedItem="{Binding SelectedItem}"
+                                SelectionChanged="Thumbnails_SelectionChanged"
+                                SelectionMode="Extended">
+                                <ListView.Resources>
+                                    <Style TargetType="{x:Type ListViewItem}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                    <StackPanel>
+
+                                                        <Border
+                                                            x:Name="ItemBorder"
+                                                            Width="160"
+                                                            Height="155"
+                                                            Margin="5"
+                                                             CornerRadius="10 10 0 0"
+                                                            >
+                                                            <Grid Margin="-1">
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="auto" />
+                                                                    <RowDefinition Height="1*" />
+                                                                </Grid.RowDefinitions>
+
+                                                                <Border Margin="0 0" Background="{StaticResource ImageAndHeaderBackgroundBrush}"
+                                                                CornerRadius="10 10 0 0"
+                                                                Height="30"
+                                                                x:Name="HeaderGrid"
+                                                                >
+                                                                    <Grid Margin="0" >
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width=".15*" />
+                                                                            <ColumnDefinition Width="1*" />
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <Viewbox  Height="15" Width="15" Margin="5 0 0 0">
+
+                                                                            <Path Stretch="Fill" Data="{StaticResource DateIcon}" Fill="{StaticResource ImageHeaderForegroundBrush}" />
+                                                                        </Viewbox>
+
+
+                                                                        <TextBlock
+                                                            Grid.Column="1"
+                                                            HorizontalAlignment="Left"
+                                                            FontSize="14"
+                                                            FontWeight="Bold"
+                                                            VerticalAlignment="Center"
+                                                            Foreground="{StaticResource ImageHeaderForegroundBrush}"
+                                                            Text="{Binding Heading}">
+                                                                        </TextBlock>
+                                                                        <!--<TextBlock.Background>
+                                                                <SolidColorBrush Color="{Binding HeaderBackground}" />
+                                                            </TextBlock.Background>-->
+                                                                    </Grid>
+                                                                </Border>
+
+                                                                <StackPanel Background="Gray" Grid.Row="1">
+                                                                    <Image
+                                                                    Width="160"
+                                                                    MaxHeight="156"
+                                                                    Source="{Binding ThumbNail, Converter={StaticResource ImageConverterFromString}}"
+                                                                    Stretch="Uniform">
+                                                                        <Image.ToolTip>
+                                                                            <StackPanel Orientation="Vertical">
+                                                                                <TextBlock
+                                                                                FontSize="16"
+                                                                                FontWeight="Bold"
+                                                                                Foreground="SeaGreen"
+                                                                                Text="{Binding ToolTips}" />
+                                                                                <Image
+                                                                                Height="400"
+                                                                                Margin="10"
+                                                                                Source="{Binding FullPath, Converter={StaticResource ImageConverterFromPath}}"
+                                                                                Stretch="Uniform" />
+                                                                            </StackPanel>
+                                                                        </Image.ToolTip>
+                                                                    </Image>
+                                                                </StackPanel>
+                                                            </Grid>
+                                                        </Border>
+                                                    </StackPanel>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsEnabled" Value="False">
+                                                            <!--<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>-->
+                                                        </Trigger>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter TargetName="ItemBorder" Property="BorderBrush" Value="{DynamicResource SelectedImageBorderBrush}" />
+                                                            <Setter TargetName="ItemBorder" Property="BorderThickness" Value="6" />
+                                                        </Trigger>
+                                                        <DataTrigger Binding="{Binding Heading}" Value="">
+                                                            <Setter TargetName="HeaderGrid" Property="Visibility" Value="Collapsed" />
+                                                            <Setter Property="CornerRadius" Value="0 0 0 0" TargetName="ItemBorder" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Heading}" Value="{x:Null}">
+                                                            <Setter TargetName="HeaderGrid" Property="Visibility" Value="Collapsed" />
+                                                            <Setter Property="CornerRadius" Value="0 0 0 0" TargetName="ItemBorder" />
+                                                        </DataTrigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+
+                                    </Style>
+                                </ListView.Resources>
+                                <!--<ListView.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Blue"/>
+                                </ListView.Resources>-->
+                                <ListView.ContextMenu>
+                                    <ContextMenu Name="TileContextMenu">
+                                        <MenuItem Click="View_Click" Header="View" />
+                                        <MenuItem Click="FileLocation_Click" Header="Open File location" />
+                                        <Separator />
+                                        <MenuItem Command="{StaticResource CopyCommand}" Header="Export selected Photos."  InputGestureText="Ctrl+C" />
+                                        <MenuItem Click="Collect50_Click" Header="Export top 50 Photos." />
+                                        <MenuItem Click="Collect100_Click" Header="Export top 100 Photos." />
+                                        <Separator />
+                                        <MenuItem Click="MenuItem_Click_Delete" Command="{StaticResource DeleteCommand}" Header="Delete selected photos." InputGestureText="DEL" />
+                                    </ContextMenu>
+                                </ListView.ContextMenu>
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Top"
+                                            Columns="8"
+                                            VirtualizingPanel.IsVirtualizing="True"
+                                            VirtualizingPanel.VirtualizationMode="Recycling" />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Image
+                                                Width="150"
+                                                MaxHeight="135"
+                                                Source="{Binding Image}"
+                                                Stretch="Uniform">
+                                                <Image.ToolTip>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock
+                                                            FontSize="16"
+                                                            FontWeight="Bold"
+                                                            Foreground="SeaGreen"
+                                                            Text="{Binding ToolTips}" />
+                                                        <Image
+                                                            Height="400"
+                                                            Source="{Binding Image}"
+                                                            Stretch="Uniform" />
+                                                    </StackPanel>
+                                                </Image.ToolTip>
+                                            </Image>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <!--<Rectangle Height="Auto" Width="10" Fill="Black" VerticalAlignment="Stretch" DockPanel.Dock="Right"/>-->
+                            <StackPanel
+                                Width="250"
+                                Margin="0 -35 5 0"
+                                HorizontalAlignment="Right"
+                                DockPanel.Dock="Right">
+                                <Label HorizontalAlignment="Right" Content="Add / Remove TAGs." />
+                                <TextBox
+                                    x:Name="MetaEditBox"
+                                    Width="250"
+                                    Height="60"
+                                     ToolTip="Add/Remove new TAGs"
+                                    HorizontalAlignment="Center"
+                                    HorizontalScrollBarVisibility="Auto"
+                                    KeyDown="MetaEditBox_KeyDown"
+                                    SelectionChanged="MetaEditBox_SelectionChanged"
+                                    Style="{StaticResource WaterMarkTextBoxStyle}"
+                                    Tag="Enter Tags you want to Add or Remove"
+                                    Text="{Binding MetaTags}"
+                                    TextWrapping="Wrap"
+                                    VerticalScrollBarVisibility="Auto" />
+                                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                    <Button
+                                        Name="MetaSaveButton"
+                                        Width="80"
+                                        Margin="0 5 8 0"
+                                        HorizontalAlignment="Right"
+                                        Click="Button_AddCustomTag"
+                                        Content=" Add TAGs.. ">
+                                        <Button.ToolTip>
+                                            <TextBlock>Placeholder tool tip</TextBlock>
+                                        </Button.ToolTip>
+                                    </Button>
+                                    <Button
+                                        Name="MetaEraseButton"
+                                        Width="80"
+                                        Margin="0 5 0 0"
+                                        HorizontalAlignment="Right"
+                                        Click="MetaEraseButton_Click"
+                                        Content="Remove TAGs..">
+                                        <Button.ToolTip>
+                                            <TextBlock>Placeholder tool tip</TextBlock>
+                                        </Button.ToolTip>
+                                    </Button>
+                                </StackPanel>
+                                <Label
+                                    Margin="0 5 0 0"
+                                    HorizontalAlignment="Right"
+                                    Content="Auto generated keywords." />
+                                <TextBox
+                                    Name="MoreMetaBox"
+                                    Width="250"
+                                    Height="60"
+                                    Background="LightGray"
+                                    BorderBrush="LightGray"
+                                    IsReadOnly="True"
+                                    Text="{Binding MoreMeta}"
+                                    TextWrapping="Wrap" />
+                                <Separator Height="2" Background="Transparent" />
+                                <TextBlock Name="AroundThisHourTextBlock">
+                                    <Hyperlink
+                                        Name="AroundThisHour"
+                                        IsEnabled="{Binding AroundThisHourQuery.IsEnabled}"
+                                        NavigateUri="{Binding AroundThisHourQuery.QueryString}"
+                                        RequestNavigate="Hyperlink_RequestNavigate">
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontWeight="Bold"
+                                            Text="{Binding AroundThisHourQuery.QueryDisplayName}">
+                                            <TextBlock.ToolTip>
+                                                <ToolTip Visibility="Visible">
+                                                    <TextBlock Text="{Binding AroundThisHourQuery.QueryDisplayName}" />
+                                                </ToolTip>
+                                            </TextBlock.ToolTip>
+                                        </TextBlock>
+                                    </Hyperlink>
+
+                                </TextBlock>
+                                <TextBlock Name ="AroundThisDayTextBlock">
+                                    <Hyperlink
+                                        Name="AroundThisDay"
+                                        IsEnabled="{Binding AroundThisDayQuery.IsEnabled}"
+                                        NavigateUri="{Binding AroundThisDayQuery.QueryString}"
+                                        RequestNavigate="Hyperlink_RequestNavigate">
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontWeight="Bold"
+                                            Text="{Binding AroundThisDayQuery.QueryDisplayName}">
+                                            <TextBlock.ToolTip>
+                                                <ToolTip Visibility="Visible">
+                                                    <TextBlock Text="{Binding AroundThisHourQuery.QueryDisplayName}" />
+                                                </ToolTip>
+                                            </TextBlock.ToolTip>
+                                        </TextBlock>
+                                    </Hyperlink>
+
+                                </TextBlock>
+                                <Separator Height="20" Background="Transparent" />
+                                <Separator Height="10" />
+
+                                <Label
+                                    HorizontalAlignment="Left"
+                                    Content="Discover -"
+                                    FontSize="16"
+                                    FontWeight="Bold" />
+
+                                <ListView
+                                    Width="250"
+                                    MinHeight="20"
+                                    MaxHeight="300"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    BorderThickness="0"
+                                    DockPanel.Dock="Left"
+                                    ItemsSource="{Binding RecommendationsSource}"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ListViewItem}">
+                                            <Setter Property="Focusable" Value="False" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Columns="1" />
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <Separator Height="20" Background="Transparent" />
+                                                <Hyperlink NavigateUri="{Binding QueryString}" RequestNavigate="Hyperlink_RequestNavigate">
+                                                    <TextBlock
+                                                        FontSize="14"
+                                                        FontWeight="Bold"
+                                                        Text="{Binding QueryDisplayName}">
+                                                        <TextBlock.ToolTip>
+                                                            <ToolTip Visibility="Visible">
+                                                                <TextBlock Text="{Binding QueryName}" />
+                                                            </ToolTip>
+                                                        </TextBlock.ToolTip>
+                                                    </TextBlock>
+                                                </Hyperlink>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+
+
+                            </StackPanel>
+                        </DockPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem
+                     ToolTip="Catelog based on Places"
+                    Height="25"
+                    MinWidth="80"
+                    Header="Places">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="188*" />
+                            <ColumnDefinition Width="460*" />
+                            <ColumnDefinition Width="175*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.ColumnSpan="3" Orientation="Vertical">
+                            <Label
+                                Margin="7 3 0 0"
+                                Content="{Binding TabHint}"
+                                FontSize="13"
+                                FontWeight="Bold" />
+                            <StackPanel>
+                                <ListView
+                                    Name="LocationView"
+                                    VerticalAlignment="Top"
+                                    BorderThickness="0"
+                                    ItemsSource="{Binding Source={StaticResource locationSource}}"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ListViewItem}">
+                                            <Setter Property="Focusable" Value="False" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel />
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListView.GroupStyle>
+                                        <GroupStyle>
+                                            <GroupStyle.HeaderTemplate>
+                                                <DataTemplate>
+                                                   <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width=".02*" />
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="1*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Separator Opacity=".5" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    Margin="10,5,10,5"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Name}" />
+                                                <Separator Grid.Column="2" Opacity=".5" />
+                                            </Grid>
+                                                </DataTemplate>
+                                            </GroupStyle.HeaderTemplate>
+                                        </GroupStyle>
+                                    </ListView.GroupStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Margin="5" Width="160">
+                                            <Hyperlink
+                                                IsEnabled="{Binding IsEnabled}"
+                                                NavigateUri="{Binding QueryString}"
+                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                <TextBlock
+                                                    FontSize="14"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding QueryDisplayName}">
+                                                            <TextBlock.ToolTip>
+                                                                <ToolTip Visibility="Visible">
+                                                                    <TextBlock Text="{Binding QueryName}" />
+                                                                </ToolTip>
+                                                            </TextBlock.ToolTip>
+                                                </TextBlock>
+                                            </Hyperlink>
+                                        </TextBlock>
+                                    </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                    <!--<ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <Separator Height="20" Background="Transparent" />
+                                                <Hyperlink
+                                                    IsEnabled="{Binding IsEnabled}"
+                                                    NavigateUri="{Binding QueryString}"
+                                                    RequestNavigate="Hyperlink_RequestNavigate">
+                                                    <TextBlock
+                                                        FontSize="14"
+                                                        FontWeight="Bold"
+                                                        Text="{Binding QueryDisplayName}">
+                                                        <TextBlock.ToolTip>
+                                                            <ToolTip Visibility="Visible">
+                                                                <TextBlock Text="{Binding QueryName}" />
+                                                            </ToolTip>
+                                                        </TextBlock.ToolTip>
+                                                    </TextBlock>
+                                                </Hyperlink>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>-->
+                                </ListView>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem
+                     ToolTip="Catelog based on date"
+                    Height="25"
+                    MinWidth="80"
+                    Margin="-2 -2 -2 0"
+                    VerticalAlignment="Top"
+                    Header="Times">
+                    <Grid>
+                        <StackPanel Grid.ColumnSpan="3" Orientation="Vertical">
+                            <Label
+                                Margin="7 3 0 0"
+                                Content="{Binding TabHint}"
+                                FontSize="13"
+                                FontWeight="Bold" />
+                            <StackPanel>
+                                <DataGrid
+                                    Name="YearlyListView"
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Stretch"
+                                    AutoGenerateColumns="False"
+                                    Background="White"
+                                    CanUserReorderColumns="False"
+                                    ItemsSource="{Binding YearlyViewSource}"
+                                    RowHeaderWidth="0"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                    ColumnHeaderHeight="30"
+                                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Width="*" Header="Year">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <TextBlock
+                                                            FontSize="14"
+                                                            FontWeight="Bold"
+                                                            Text="{Binding Name}" />
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*" Header="January">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[0].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[0].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[0].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[0].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*" Header="February">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[1].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[1].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[1].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[1].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*" Header="March">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[2].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[2].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[2].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[2].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*" Header="April">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[3].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[3].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[3].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[3].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*" Header="May">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[4].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[4].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[4].QueryDisplayName}"
+                                                                TextTrimming="CharacterEllipsis">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[4].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*" Header="June">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[5].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[5].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[5].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[5].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*" Header="July">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[6].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[6].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[6].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[6].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*" Header="August">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[7].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[7].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[7].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[7].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*" Header="September">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[8].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[8].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[8].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[8].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*" Header="October">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[9].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[9].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[9].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[9].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*" Header="November">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[10].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[10].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[10].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[10].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*" Header="December">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[11].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[11].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[11].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[11].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem
+                     ToolTip="Catelogs based on my TAGs"
+                    Height="25"
+                    MinWidth="80"
+                    Margin="-2 -2 -2 2"
+                    Header="My TAGs">
+                    <Grid>
+                        <!--<Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="633*" />
+                            <ColumnDefinition Width="190*" />
+                        </Grid.ColumnDefinitions>-->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            Margin="7 3 0 0"
+                            Content="{Binding TabHint}"
+                            FontSize="13"
+                            FontWeight="Bold" />
+
+                        <ListView
+                            Name="CustomKeywordView"
+                            Grid.Row="1"
+                            BorderThickness="0"
+                            ItemsSource="{Binding Source={StaticResource customeKeyWordSource}}"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="Focusable" Value="False" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width=".02*" />
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="1*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Separator Opacity=".5" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    Margin="10,5,10,5"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Name}" />
+                                                <Separator Grid.Column="2" Opacity=".5" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                   <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Margin="5" Width="160">
+                                            <Hyperlink
+                                                IsEnabled="{Binding IsEnabled}"
+                                                NavigateUri="{Binding QueryString}"
+                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                <TextBlock
+                                                    FontSize="14"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding QueryDisplayName}">
+                                                    <TextBlock.ToolTip>
+                                                        <ToolTip Visibility="Visible">
+                                                            <TextBlock Text="{Binding QueryName}" />
+                                                        </ToolTip>
+                                                    </TextBlock.ToolTip>
+                                                </TextBlock>
+                                            </Hyperlink>
+                                        </TextBlock>
+
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </Grid>
+                </TabItem>
+                <TabItem
+                     ToolTip="Catelogs based on my folder"
+                    Height="25"
+                    MinWidth="80"
+                    Margin="-2 -2 -2 2"
+                    Header="Folders">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="459*" />
+                            <ColumnDefinition Width="364*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            Grid.ColumnSpan="2"
+                            Margin="7 3 0 0"
+                            Content="{Binding TabHint}"
+                            FontSize="13"
+                            FontWeight="Bold" />
+
+                        <ListView
+                            Name="FolderView"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            BorderThickness="0"
+                            ItemsSource="{Binding Source={StaticResource folderFileNameSource}}"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="Focusable" Value="False" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <controls:VirtualizingWrapPanel />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width=".02*" />
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="1*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Separator Opacity=".5" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    Margin="10,5,10,5"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Name}" />
+                                                <Separator Grid.Column="2" Opacity=".5" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                  <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Margin="5" Width="160">
+                                            <Hyperlink
+                                                IsEnabled="{Binding IsEnabled}"
+                                                NavigateUri="{Binding QueryString}"
+                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                <TextBlock
+                                                    FontSize="14"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding QueryDisplayName}">
+                                                    <TextBlock.ToolTip>
+                                                        <ToolTip Visibility="Visible">
+                                                            <TextBlock Text="{Binding QueryName}" />
+                                                        </ToolTip>
+                                                    </TextBlock.ToolTip>
+                                                </TextBlock>
+                                            </Hyperlink>
+                                        </TextBlock>
+
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+                <TabItem
+                     ToolTip="Catelog based on camera models"
+                    Height="25"
+                    MinWidth="80"
+                    Margin="-2 -2 -2 2"
+                    Header="Cameras">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Label
+                            Margin="7 3 0 0"
+                            Content="{Binding TabHint}"
+                            FontSize="13"
+                            FontWeight="Bold" />
+
+                        <ListView
+                            Name="MiscKeywordView"
+                            Grid.Row="1"
+                            BorderThickness="0"
+                            ItemsSource="{Binding Source={StaticResource miscKeyWordSource}}"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="Focusable" Value="False" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width=".02*" />
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="1*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Separator Opacity=".5" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    Margin="10,5,10,5"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Name}" />
+                                                <Separator Grid.Column="2" Opacity=".5" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                  <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Margin="5" Width="160">
+                                            <Hyperlink
+                                                IsEnabled="{Binding IsEnabled}"
+                                                NavigateUri="{Binding QueryString}"
+                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                <TextBlock
+                                                    FontSize="14"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding QueryDisplayName}">
+                                                    <TextBlock.ToolTip>
+                                                        <ToolTip Visibility="Visible">
+                                                            <TextBlock Text="{Binding QueryName}" />
+                                                        </ToolTip>
+                                                    </TextBlock.ToolTip>
+                                                </TextBlock>
+                                            </Hyperlink>
+                                        </TextBlock>
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+                <TabItem
+                     ToolTip="Catelogs based on Height"
+                    Height="25"
+                    MinWidth="80"
+                    Margin="-2 -2 -2 2"
+                    Header="Elevations">
+                    <Grid>
+                        <StackPanel Grid.ColumnSpan="3" Orientation="Vertical">
+                            <Label
+                                Margin="7 3 0 0"
+                                Content="{Binding TabHint}"
+                                FontSize="13"
+                                FontWeight="Bold" />
+                            <StackPanel>
+                                <ListView
+                                    Name="HeightView"
+                                    VerticalAlignment="Top"
+                                    BorderThickness="0"
+                                    ItemsSource="{Binding Source={StaticResource HeightViewSource}}"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ListViewItem}">
+                                            <Setter Property="Focusable" Value="False" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel />
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListView.GroupStyle>
+                                        <GroupStyle>
+                                            <GroupStyle.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width=".02*" />
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="1*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Separator Opacity=".5" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    Margin="10,5,10,5"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Name}" />
+                                                <Separator Grid.Column="2" Opacity=".5" />
+                                            </Grid>
+                                                </DataTemplate>
+                                            </GroupStyle.HeaderTemplate>
+                                        </GroupStyle>
+                                    </ListView.GroupStyle>
+                                    <!--<ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock >
+                                            <Separator Height="20" Background="Transparent"/>
+                                              <Hyperlink IsEnabled="{Binding IsEnabled}" NavigateUri="{Binding QueryString}" RequestNavigate="Hyperlink_RequestNavigate">
+                                                <TextBlock FontSize="14" FontWeight="Bold" Text="{Binding QueryDisplayName}">
+                                                        <TextBlock.ToolTip>
+                                                            <ToolTip Visibility="Visible">
+                                                                <TextBlock Text="{Binding QueryName}"></TextBlock>
+                                                            </ToolTip>
+                                                        </TextBlock.ToolTip>
+                                                </TextBlock>
+                                              </Hyperlink>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>-->
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                           <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Margin="5" Width="160">
+                                            <Hyperlink
+                                                IsEnabled="{Binding IsEnabled}"
+                                                NavigateUri="{Binding QueryString}"
+                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                <TextBlock
+                                                    FontSize="14"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding QueryDisplayName}">
+                                                            <TextBlock.ToolTip>
+                                                                <ToolTip Visibility="Visible">
+                                                                    <TextBlock Text="{Binding QueryName}" />
+                                                                </ToolTip>
+                                                            </TextBlock.ToolTip>
+                                                </TextBlock>
+                                            </Hyperlink>
+                                        </TextBlock>
+
+                                    </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem
+                     ToolTip="Catelogs based on holidays"
+                    Height="25"
+                    MinWidth="80"
+                    Margin="-2 -2 -2 0"
+                    VerticalAlignment="Top"
+                    Header="Holidays">
+                    <Grid>
+                        <StackPanel Grid.ColumnSpan="3" Orientation="Vertical">
+                            <StackPanel Margin="10" Orientation="Horizontal">
+                                <ComboBox
+                                    Name="CountrySelector"
+                                    Width="200"
+                                    HorizontalAlignment="Left"
+                                    ItemsSource="{Binding CountryNameSource}"
+                                    SelectedItem="{Binding SelectedCountry}"
+                                    SelectionChanged="CountrySelector_SelectionChanged">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Rectangle
+                                                    Width="16"
+                                                    Height="16"
+                                                    Margin="0 2 5 2"
+                                                    Fill="DarkCyan" />
+                                                <TextBlock Text="{Binding Name}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Label>☚ Selection country of your choice.</Label>
+                            </StackPanel>
+                            <StackPanel>
+                                <DataGrid
+                                    Name="FestivalsView"
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="3"
+                                    Margin="0 5 0 0"
+                                    AutoGenerateColumns="False"
+                                    Background="White"
+                                    CanUserAddRows="False"
+                                    CanUserDeleteRows="False"
+                                    CanUserResizeColumns="False"
+                                    CanUserResizeRows="False"
+                                    ColumnHeaderHeight="30"
+                                    HorizontalScrollBarVisibility="Auto"
+                                    IsReadOnly="True"
+                                    ItemsSource="{Binding FestivalViewSource}"
+                                    SelectionMode="Single"
+                                    SelectionUnit="FullRow"
+                                    VerticalScrollBarVisibility="Auto">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Width="150" Header="Year" MinWidth="150">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <TextBlock
+                                                            FontSize="14"
+                                                            FontWeight="Bold"
+                                                            Text="{Binding Name}" />
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="auto"  MinWidth="150">
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.HeaderInfo[0].Title}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Margin="10 0 10 0">
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[0].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[0].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[0].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[0].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="auto"  MinWidth="150">
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.HeaderInfo[1].Title}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Margin="10 0 10 0">
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[1].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[1].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[1].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[1].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="auto"  MinWidth="150">
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.HeaderInfo[2].Title}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Margin="10 0 10 0">
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[2].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[2].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[2].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[2].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="auto"  MinWidth="150">
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.HeaderInfo[3].Title}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Margin="10 0 10 0">
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[3].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[3].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[3].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[3].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="auto"  MinWidth="150">
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.HeaderInfo[4].Title}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Margin="10 0 10 0">
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[4].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[4].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[4].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[4].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="auto"  MinWidth="150">
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.HeaderInfo[5].Title}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Margin="10 0 10 0">
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[5].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[5].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[5].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[5].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="auto"  MinWidth="150">
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.HeaderInfo[6].Title}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Margin="10 0 10 0">
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[6].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[6].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[6].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[6].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <!--<DataGridTemplateColumn Width="auto">
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.HeaderInfo[7].Title}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Margin="10 0 10 0">
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[7].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[7].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[7].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[7].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="auto">
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.HeaderInfo[8].Title}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Margin="10 0 10 0">
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[8].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[8].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[8].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[8].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="auto">
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.HeaderInfo[9].Title}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Margin="10 0 10 0">
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[9].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[9].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[9].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[9].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>-->
+                                        <!--<DataGridTemplateColumn Width="auto">
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.HeaderInfo[10].Title}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Margin="10 0 10 0">
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[10].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[10].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[10].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[10].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="auto">
+                                            <DataGridTemplateColumn.HeaderTemplate>
+                                                <DataTemplate>
+
+                                                    <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.HeaderInfo[11].Title}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.HeaderTemplate>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Margin="10 0 10 0">
+                                                        <Separator Height="20" Background="Transparent" />
+                                                        <Hyperlink
+                                                            IsEnabled="{Binding MonthsQueryInfo[11].IsEnabled}"
+                                                            NavigateUri="{Binding MonthsQueryInfo[11].QueryString}"
+                                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding MonthsQueryInfo[11].QueryDisplayName}">
+                                                                <TextBlock.ToolTip>
+                                                                    <ToolTip Visibility="Visible">
+                                                                        <TextBlock Text="{Binding MonthsQueryInfo[11].QueryName}" />
+                                                                    </ToolTip>
+                                                                </TextBlock.ToolTip>
+                                                            </TextBlock>
+                                                        </Hyperlink>
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>-->
+
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <!--<ListView
+                                    Name="FestivalsView"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    BorderThickness="0"
+                                    DockPanel.Dock="Left"
+                                    ItemsSource="{Binding FestivalViewSource}"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ListViewItem}">
+                                            <Setter Property="Focusable" Value="False" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Width="70" Header="Year">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <Separator Height="20" Background="Transparent" />
+                                                            <TextBlock
+                                                                FontSize="14"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding Name}" />
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="{Binding HeaderInfo[0].Width}" Header="{Binding HeaderInfo[0].Title}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <Separator Height="20" Background="Transparent" />
+                                                            <Hyperlink
+                                                                IsEnabled="{Binding MonthsQueryInfo[0].IsEnabled}"
+                                                                NavigateUri="{Binding MonthsQueryInfo[0].QueryString}"
+                                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                                <TextBlock
+                                                                    FontSize="14"
+                                                                    FontWeight="Bold"
+                                                                    Text="{Binding MonthsQueryInfo[0].QueryDisplayName}">
+                                                                    <TextBlock.ToolTip>
+                                                                        <ToolTip Visibility="Visible">
+                                                                            <TextBlock Text="{Binding MonthsQueryInfo[0].QueryName}" />
+                                                                        </ToolTip>
+                                                                    </TextBlock.ToolTip>
+                                                                </TextBlock>
+                                                            </Hyperlink>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="{Binding HeaderInfo[1].Width}" Header="{Binding HeaderInfo[1].Title}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <Separator Height="20" Background="Transparent" />
+                                                            <Hyperlink
+                                                                IsEnabled="{Binding MonthsQueryInfo[1].IsEnabled}"
+                                                                NavigateUri="{Binding MonthsQueryInfo[1].QueryString}"
+                                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                                <TextBlock
+                                                                    FontSize="14"
+                                                                    FontWeight="Bold"
+                                                                    Text="{Binding MonthsQueryInfo[1].QueryDisplayName}">
+                                                                    <TextBlock.ToolTip>
+                                                                        <ToolTip Visibility="Visible">
+                                                                            <TextBlock Text="{Binding MonthsQueryInfo[1].QueryName}" />
+                                                                        </ToolTip>
+                                                                    </TextBlock.ToolTip>
+                                                                </TextBlock>
+                                                            </Hyperlink>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="{Binding HeaderInfo[2].Width}" Header="{Binding HeaderInfo[2].Title}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <Separator Height="20" Background="Transparent" />
+                                                            <Hyperlink
+                                                                IsEnabled="{Binding MonthsQueryInfo[2].IsEnabled}"
+                                                                NavigateUri="{Binding MonthsQueryInfo[2].QueryString}"
+                                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                                <TextBlock
+                                                                    FontSize="14"
+                                                                    FontWeight="Bold"
+                                                                    Text="{Binding MonthsQueryInfo[2].QueryDisplayName}">
+                                                                    <TextBlock.ToolTip>
+                                                                        <ToolTip Visibility="Visible">
+                                                                            <TextBlock Text="{Binding MonthsQueryInfo[2].QueryName}" />
+                                                                        </ToolTip>
+                                                                    </TextBlock.ToolTip>
+                                                                </TextBlock>
+                                                            </Hyperlink>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="{Binding HeaderInfo[3].Width}" Header="{Binding HeaderInfo[3].Title}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <Separator Height="20" Background="Transparent" />
+                                                            <Hyperlink
+                                                                IsEnabled="{Binding MonthsQueryInfo[3].IsEnabled}"
+                                                                NavigateUri="{Binding MonthsQueryInfo[3].QueryString}"
+                                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                                <TextBlock
+                                                                    FontSize="14"
+                                                                    FontWeight="Bold"
+                                                                    Text="{Binding MonthsQueryInfo[3].QueryDisplayName}">
+                                                                    <TextBlock.ToolTip>
+                                                                        <ToolTip Visibility="Visible">
+                                                                            <TextBlock Text="{Binding MonthsQueryInfo[3].QueryName}" />
+                                                                        </ToolTip>
+                                                                    </TextBlock.ToolTip>
+                                                                </TextBlock>
+                                                            </Hyperlink>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="{Binding HeaderInfo[4].Width}" Header="{Binding HeaderInfo[4].Title}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <Separator Height="20" Background="Transparent" />
+                                                            <Hyperlink
+                                                                IsEnabled="{Binding MonthsQueryInfo[4].IsEnabled}"
+                                                                NavigateUri="{Binding MonthsQueryInfo[4].QueryString}"
+                                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                                <TextBlock
+                                                                    FontSize="14"
+                                                                    FontWeight="Bold"
+                                                                    Text="{Binding MonthsQueryInfo[4].QueryDisplayName}">
+                                                                    <TextBlock.ToolTip>
+                                                                        <ToolTip Visibility="Visible">
+                                                                            <TextBlock Text="{Binding MonthsQueryInfo[4].QueryName}" />
+                                                                        </ToolTip>
+                                                                    </TextBlock.ToolTip>
+                                                                </TextBlock>
+                                                            </Hyperlink>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="{Binding HeaderInfo[5].Width}" Header="{Binding HeaderInfo[5].Title}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <Separator Height="20" Background="Transparent" />
+                                                            <Hyperlink
+                                                                IsEnabled="{Binding MonthsQueryInfo[5].IsEnabled}"
+                                                                NavigateUri="{Binding MonthsQueryInfo[5].QueryString}"
+                                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                                <TextBlock
+                                                                    FontSize="14"
+                                                                    FontWeight="Bold"
+                                                                    Text="{Binding MonthsQueryInfo[5].QueryDisplayName}">
+                                                                    <TextBlock.ToolTip>
+                                                                        <ToolTip Visibility="Visible">
+                                                                            <TextBlock Text="{Binding MonthsQueryInfo[5].QueryName}" />
+                                                                        </ToolTip>
+                                                                    </TextBlock.ToolTip>
+                                                                </TextBlock>
+                                                            </Hyperlink>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="{Binding HeaderInfo[6].Width}" Header="{Binding HeaderInfo[6].Title}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <Separator Height="20" Background="Transparent" />
+                                                            <Hyperlink
+                                                                IsEnabled="{Binding MonthsQueryInfo[6].IsEnabled}"
+                                                                NavigateUri="{Binding MonthsQueryInfo[6].QueryString}"
+                                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                                <TextBlock
+                                                                    FontSize="14"
+                                                                    FontWeight="Bold"
+                                                                    Text="{Binding MonthsQueryInfo[6].QueryDisplayName}">
+                                                                    <TextBlock.ToolTip>
+                                                                        <ToolTip Visibility="Visible">
+                                                                            <TextBlock Text="{Binding MonthsQueryInfo[6].QueryName}" />
+                                                                        </ToolTip>
+                                                                    </TextBlock.ToolTip>
+                                                                </TextBlock>
+                                                            </Hyperlink>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="{Binding HeaderInfo[7].Width}" Header="{Binding HeaderInfo[7].Title}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <Separator Height="20" Background="Transparent" />
+                                                            <Hyperlink
+                                                                IsEnabled="{Binding MonthsQueryInfo[7].IsEnabled}"
+                                                                NavigateUri="{Binding MonthsQueryInfo[7].QueryString}"
+                                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                                <TextBlock
+                                                                    FontSize="14"
+                                                                    FontWeight="Bold"
+                                                                    Text="{Binding MonthsQueryInfo[7].QueryDisplayName}">
+                                                                    <TextBlock.ToolTip>
+                                                                        <ToolTip Visibility="Visible">
+                                                                            <TextBlock Text="{Binding MonthsQueryInfo[7].QueryName}" />
+                                                                        </ToolTip>
+                                                                    </TextBlock.ToolTip>
+                                                                </TextBlock>
+                                                            </Hyperlink>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="{Binding HeaderInfo[8].Width}" Header="{Binding HeaderInfo[8].Title}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <Separator Height="20" Background="Transparent" />
+                                                            <Hyperlink
+                                                                IsEnabled="{Binding MonthsQueryInfo[8].IsEnabled}"
+                                                                NavigateUri="{Binding MonthsQueryInfo[8].QueryString}"
+                                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                                <TextBlock
+                                                                    FontSize="14"
+                                                                    FontWeight="Bold"
+                                                                    Text="{Binding MonthsQueryInfo[8].QueryDisplayName}">
+                                                                    <TextBlock.ToolTip>
+                                                                        <ToolTip Visibility="Visible">
+                                                                            <TextBlock Text="{Binding MonthsQueryInfo[8].QueryName}" />
+                                                                        </ToolTip>
+                                                                    </TextBlock.ToolTip>
+
+                                                                </TextBlock>
+                                                            </Hyperlink>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="{Binding HeaderInfo[9].Width}" Header="{Binding HeaderInfo[9].Title}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <Separator Height="20" Background="Transparent" />
+                                                            <Hyperlink
+                                                                IsEnabled="{Binding MonthsQueryInfo[9].IsEnabled}"
+                                                                NavigateUri="{Binding MonthsQueryInfo[9].QueryString}"
+                                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                                <TextBlock
+                                                                    FontSize="14"
+                                                                    FontWeight="Bold"
+                                                                    Text="{Binding MonthsQueryInfo[9].QueryDisplayName}">
+                                                                    <TextBlock.ToolTip>
+                                                                        <ToolTip Visibility="Visible">
+                                                                            <TextBlock Text="{Binding MonthsQueryInfo[9].QueryName}" />
+                                                                        </ToolTip>
+                                                                    </TextBlock.ToolTip>
+                                                                </TextBlock>
+                                                            </Hyperlink>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="{Binding HeaderInfo[10].Width}" Header="{Binding HeaderInfo[10].Title}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <Separator Height="20" Background="Transparent" />
+                                                            <Hyperlink
+                                                                IsEnabled="{Binding MonthsQueryInfo[10].IsEnabled}"
+                                                                NavigateUri="{Binding MonthsQueryInfo[10].QueryString}"
+                                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                                <TextBlock
+                                                                    FontSize="14"
+                                                                    FontWeight="Bold"
+                                                                    Text="{Binding MonthsQueryInfo[10].QueryDisplayName}">
+                                                                    <TextBlock.ToolTip>
+                                                                        <ToolTip Visibility="Visible">
+                                                                            <TextBlock Text="{Binding MonthsQueryInfo[10].QueryName}" />
+                                                                        </ToolTip>
+                                                                    </TextBlock.ToolTip>
+                                                                </TextBlock>
+                                                            </Hyperlink>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="{Binding HeaderInfo[11].Width}" Header="{Binding HeaderInfo[11].Title}">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock>
+                                                            <Separator Height="20" Background="Transparent" />
+                                                            <Hyperlink
+                                                                IsEnabled="{Binding MonthsQueryInfo[11].IsEnabled}"
+                                                                NavigateUri="{Binding MonthsQueryInfo[11].QueryString}"
+                                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                                <TextBlock
+                                                                    FontSize="14"
+                                                                    FontWeight="Bold"
+                                                                    Text="{Binding MonthsQueryInfo[11].QueryDisplayName}">
+                                                                    <TextBlock.ToolTip>
+                                                                        <ToolTip Visibility="Visible">
+                                                                            <TextBlock Text="{Binding MonthsQueryInfo[11].QueryName}" />
+                                                                        </ToolTip>
+                                                                    </TextBlock.ToolTip>
+                                                                </TextBlock>
+                                                            </Hyperlink>
+                                                        </TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>-->
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem
+                     ToolTip="My Bookmarks"
+                    Height="25"
+                    MinWidth="80"
+                    Margin="-2 -2 -2 0"
+                    VerticalAlignment="Top"
+                    Header="My Bookmarks">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Label
+                            Margin="7 3 0 0"
+                            Content="Queries that you made favorite."
+                            FontSize="13"
+                            FontWeight="Bold" />
+
+                        <ListView
+                            Name="FavoriteView"
+                            Grid.Row="1"
+                            BorderThickness="0"
+                            ItemsSource="{Binding Source={StaticResource favoriteViewSource}}"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="Focusable" Value="False" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width=".02*" />
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="1*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Separator Opacity=".5" />
+                                                <TextBlock
+                                                    Grid.Column="1"
+                                                    Margin="10,5,10,5"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="20"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Name}" />
+                                                <Separator Grid.Column="2" Opacity=".5" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Margin="5" Width="160">
+                                            <Hyperlink
+                                                IsEnabled="{Binding IsEnabled}"
+                                                NavigateUri="{Binding QueryString}"
+                                                RequestNavigate="Hyperlink_RequestNavigate">
+                                                <TextBlock
+                                                    FontSize="14"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding QueryDisplayName}">
+                                                    <TextBlock.ToolTip>
+                                                        <ToolTip Visibility="Visible">
+                                                            <TextBlock Text="{Binding QueryName}" />
+                                                        </ToolTip>
+                                                    </TextBlock.ToolTip>
+                                                </TextBlock>
+                                            </Hyperlink>
+                                        </TextBlock>
+
+
+                                        <!--<Button
+                                            Grid.Column="1"
+                                            Width="20"
+                                            Height="20"
+                                            Name="btn_remove_favorite"
+                                           
+                                            Margin="2 4 2 2"
+                                            Background="Transparent"
+                                            BorderBrush="Gray"
+                                            BorderThickness="1"
+                                            Content="X"
+                                            Click="RemoveFromFavorite_Clicked"
+                                            Style="{StaticResource CustomButtonStyle}" />-->
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+            <DockPanel Grid.Row="1">
+                <StatusBar DockPanel.Dock="bottom">
+                    <StatusBar.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="200" />
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+                        </ItemsPanelTemplate>
+                    </StatusBar.ItemsPanel>
+                    <StatusBarItem>
+                        <TextBlock Text="{Binding TotalPhotoText}" />
+                    </StatusBarItem>
+                    <Separator Grid.Column="1" />
+                    <StatusBarItem Grid.Column="2">
+                        <TextBlock Text="{Binding AlreadyInIndexCount}" />
+                    </StatusBarItem>
+                    <Separator Grid.Column="3" />
+
+                    <StatusBarItem Grid.Column="4">
+                        <TextBlock Text="{Binding SelectedCount}" />
+                    </StatusBarItem>
+                    <Separator Grid.Column="5" />
+
+                    <StatusBarItem Grid.Column="6">
+                        <TextBlock Text="{Binding StatusText}" />
+                    </StatusBarItem>
+                    <Separator Grid.Column="7" />
+                    <StatusBarItem Grid.Column="8">
+                        <Grid Visibility="Visible">
+                        <ProgressBar
+                            Width="200"
+                            Height="16"
+                            Value="{Binding Progress}" />
+                           <TextBlock HorizontalAlignment="Center" FontWeight="Bold" VerticalAlignment="Center"  Text="{Binding ProgressText}"/>
+                         
+                            </Grid>
+                    </StatusBarItem>
+                </StatusBar>
+                <TextBox AcceptsReturn="False" IsReadOnly="true" />
+            </DockPanel>
+        </Grid>
+    </DockPanel>
+</Window>

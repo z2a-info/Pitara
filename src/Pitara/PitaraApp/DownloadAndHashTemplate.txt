@@ -1,0 +1,41 @@
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #dddddd;
+  border-color: #96D4D4;
+} 
+
+td, th {
+  padding: 0px;
+}
+
+</style>
+<table>
+  <tr>
+    <td >
+    <a href="https://www.GetPitara.com/setup/PitaraSetup.zip"><img class="alignnone wp-image-845" src="http://getpitara.com/en/wp-content/uploads/2021/02/14465-256x256x32.png" alt="" width="36" height="36"/></a><a href="https://www.GetPitara.com/setup/PitaraSetup.zip" target="_blank" rel="noopener noreferrer">Installer</a>
+    </td>
+    <td >
+    <font style="font-size: 0.85em;">
+    SHA256 Hash for setup:{}
+    </font>
+    </td>
+    <td >
+    <a href="https://www.virustotal.com/gui/url/74b1185c4b8bd60a129500684910f9ff5433cd71fbf7b9279c4b99840ec20197/detection" target="_blank" rel="noopener noreferrer">Virus check</a>
+    </td>
+  </tr>
+  <tr>
+    <td >
+    <a href="https://www.GetPitara.com/setup/Pitara.zip"><img class="alignnone wp-image-850" src="http://getpitara.com/en/wp-content/uploads/2021/02/winzip-data-compression-computer-software-rar-zipper-27668328ba3f0a09198694e9196740b1.png" alt="" width="36" height="36" /></a><a href="https://www.GetPitara.com/setup/Pitara.zip">Portable</a>
+    </td>
+    <td >
+    <font style="font-size: 0.85em;">
+    SHA256 Hash for portable:{}
+    </font>
+    </td>
+    <td >
+    <a href="https://www.virustotal.com/gui/url/660c70ccb3594d91a7e798f9d3c724e01fe4f1aede09c33b180d55d421ea1ae5/detection" target="_blank" rel="noopener noreferrer">Virus check</a>
+    </td>
+  </tr>
+</table>

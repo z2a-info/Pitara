@@ -1,0 +1,46 @@
+Perf - 
+12/6/2023 1:03:05 AM: Time taken: Indexing clock 00:20:38.65 // 5K photos
+12/6/2023 2:35:25 PM: Time taken: Indexing clock 13:16:31.04 // 168K photos
+
+
+
+
+- Reg Ex Height - 
+	- at 5k feet/feets 
+	- at 5000 feet/feets
+
+- in September on first week from 20 years. 
+- Christmas in Hawaii from last 5 years 
+
+- Create new queries last 50 years today. 
+
+- Work on specific validation from each keywords. Think thru if auto correct or error out.
+- P2 - file count don't match with indexed count.
+- 9pm to 11pm saturday nights 2021
+- may 31 morning  of last 20 years 
+
+p2 - Right click search photos taken at the same place - Display photos within 5 miles of the area starting from the exact location
+
+[p0] Instead of crash on unhandled exception, just display a message about application shutting down and shutdown, more details in log file. Then shut down.
+
+
+
+from 
+	- 2002 
+	- 2002-2004 
+	- 10 years 
+	- 5 months
+in 
+	- MyFolder
+	- morning/evening/night
+	- Sammamish
+on 
+	- weekday
+	- monday 
+	- first week
+	- 25th
+at 
+	- 7:30am 
+	- 5000 feets
+camera
+	- Sony

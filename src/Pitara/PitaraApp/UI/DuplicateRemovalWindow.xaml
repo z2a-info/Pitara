@@ -1,0 +1,71 @@
+﻿<Window x:Class="SimpleLuceneSearch.UI.DuplicateRemovalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleLuceneSearch.UI"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        Title="Duplicate photo removal" MaxHeight="445" MaxWidth="535" MinHeight="445" MinWidth="535">
+    <!--<Window.Resources>
+        <local:RadioBoolToIntConverter x:Key="radioBoolToIntConverter" />
+    </Window.Resources>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250" />
+            <RowDefinition Height="350" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="20" Grid.RowSpan="3" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.ColumnSpan="2">
+            </StackPanel>
+            <StackPanel Margin="0,0,0,0" Orientation="Vertical">
+                <TextBlock Margin="5,0,5,5">
+                    <Hyperlink NavigateUri="RequestURL" RequestNavigate="HowDoesitWork_RequestNavigate">
+                                    <TextBlock FontSize="12" FontWeight="Bold" Text="How Pitara isolate duplicate photos?">
+                            <TextBlock.ToolTip>
+                                <ToolTip Visibility="Visible">
+                                    <TextBlock Text="Click to learn how duplicate photos are identified and isolated."></TextBlock>
+                                </ToolTip>
+                            </TextBlock.ToolTip>                                                
+                                    </TextBlock>
+                                    </Hyperlink>
+
+                                </TextBlock>
+                <Label  FontSize="16" FontWeight="Bold" Content="Isolate duplicate photos in two steps."></Label>
+                <Label Content="(1) Find duplicate photos."></Label>
+                <Label Content="(2) Move duplicate photos to location of your choice."></Label>
+                <Separator Background="Transparent" Height="10"></Separator>
+                <Button Name="ButtonFindDuplicate" Height="40" Click="Button_Click_1" >
+                <StackPanel Orientation="Horizontal">
+                     <TextBlock Margin="0,-3,5,0" FontSize="16" ><Bold>(1) Find</Bold> </TextBlock>
+                     <TextBlock >duplicates..</TextBlock>
+                </StackPanel>
+                </Button>
+                <Separator Height="20"></Separator>
+                <Label>Select a folder to move duplicates:</Label>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox VerticalContentAlignment="Center" Name="DuplicateFolderTextBox" IsReadOnly="True" Text="{Binding DuplicateFolder, Mode=TwoWay}" Width="380" Margin="0,0,10,0"></TextBox>
+                    <!--<Button Name="SelectDupFolder" Height="30" Width="90" Click="Button_Click">Select..</Button>-->
+                </StackPanel>
+                <Separator Height="20"></Separator>
+                <Button Name="ButtonMoveDuplicate" Height="40" Click="Button_Click_2">
+                <StackPanel Orientation="Horizontal">
+                     <TextBlock Margin="0,-3,5,0" FontSize="16"><Bold>(2) Move </Bold> </TextBlock>
+                     <TextBlock>duplicates..</TextBlock>
+                </StackPanel>
+                </Button>
+                <Separator Height="20"></Separator>
+                <Grid>
+                <ProgressBar Height="30" Name="ProgressBar" Background="White"></ProgressBar>
+                <TextBlock Name="ProgressText" HorizontalAlignment="Center" VerticalAlignment="Center" />                </Grid>
+                <Label Name="DuplicateStatusLabel" >...</Label>
+                <!--<Separator Height="20"></Separator>-->
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

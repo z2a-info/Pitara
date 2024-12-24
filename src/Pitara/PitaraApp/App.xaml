@@ -1,0 +1,95 @@
+﻿<Application
+    x:Class="Pitara.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:service="clr-namespace:Pitara.Services"
+    Startup="Application_Startup">
+    <Application.Resources>
+        <ResourceDictionary>
+            <service:KeywordFilterService x:Key="keywordFilterService" />
+            <LinearGradientBrush x:Key="DarkGlassShinyBrush" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#232526" Offset="0"/>
+                <GradientStop Color="#414345" Offset="1"/>
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="SelectedImageBorderBrush" Color="Black"/>
+            <SolidColorBrush x:Key="StaticImageBorderBrush" Color="Gray"/>
+            <SolidColorBrush x:Key="ImageAndHeaderBackgroundBrush" Color="LightBlue"/>
+            <SolidColorBrush x:Key="ImageHeaderForegroundBrush" Color="Black"/>
+
+            <Style TargetType="{x:Type GridViewColumnHeader}">
+                <Setter Property="Background" Value="DarkBlue" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="#FFFFFF" />
+            </Style>
+            <Style TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="Background" Value="{StaticResource DarkGlassShinyBrush}" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="BorderBrush" Value="#999999" />
+                <Setter Property="BorderThickness" Value="0 0 1 0" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="DataGridColumnHeader">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="{x:Type DataGridCell}">
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="White" />
+                        <Setter Property="BorderBrush" Value="White" />
+                        <Setter Property="Foreground" Value="Black" />
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="White" />
+                    </Trigger>
+                </Style.Triggers>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="DataGridCell">
+                            <Border>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="{x:Type DataGridRow}">
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="White" />
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="White" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <!--<Style TargetType="{x:Type wr}">
+                <Setter Property="IsVirtualizing" Value="True" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="VirtualizationMode" Value="Standard" />
+            </Style>-->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/MultiSelectComboBox.Custom.ControlTemplate.xaml" />
+                <ResourceDictionary Source="Styles/MultiSelectComboBox.Custom.DropdownItemTemplate.xaml" />
+                <ResourceDictionary Source="Styles/MultiSelectComboBox.Custom.SelectedItemTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+
+
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,3 @@
+SHA256 hash of ..\build\PitaraSetup.zip:
+8a8010f8384a301ac7e07547bbd346311f2997454d1a700a709efdf95fa23d31
+CertUtil: -hashfile command completed successfully.

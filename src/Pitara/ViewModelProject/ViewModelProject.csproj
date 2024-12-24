@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <!--<Nullable>enable</Nullable>-->
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ReactiveUI" Version="18.4.25" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommonProject\CommonProject.csproj" />
+  </ItemGroup>
+
+</Project>

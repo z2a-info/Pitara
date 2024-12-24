@@ -1,0 +1,43 @@
+﻿<Window x:Class="PitaraLuceneSearch.UI.AddToFAvoriteWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PitaraLuceneSearch.UI"
+         Title="Bookmark the query"
+    MinWidth="515"
+    MinHeight="140"
+    MaxWidth="515"
+    MaxHeight="140"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+    <Grid Margin="10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label
+            HorizontalAlignment="Left"
+            Content="Give a name to this Bookmark:"
+            FontSize="14" />
+
+        <TextBox
+            Name="FavDescription"
+            Grid.Row="1"
+            Height="30"
+            VerticalAlignment="Center"
+            VerticalContentAlignment="Center"
+            Text="{Binding QueryDescription}" />
+        <Button
+            Grid.Row="2"
+            Width="100"
+            Height="30"
+            HorizontalAlignment="Right"
+            Click="Button_Click"
+            Content="Save"
+            IsDefault="True" />
+
+    </Grid>
+</Window>
