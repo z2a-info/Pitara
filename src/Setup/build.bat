@@ -1,12 +1,12 @@
 @echo off
-set PITARA_HOME=C:\Users\NarenDev\DATA\WorkSpace\InstaFind
+set PITARA_HOME=C:\Users\NarenDev\DATA\WorkSpace\temp2\Pitara\src
 rd /s /q %PITARA_HOME%\Pitara\PitaraApp\bin
 rd /s /q %PITARA_HOME%\PackageContents
 mkdir %PITARA_HOME%\PackageContents
 
 
 echo Nuget Restore
-dotnet restore %PITARA_HOME%\Pitara\PitaraApp
+dotnet restore %PITARA_HOME%\src\Pitara\PitaraApp
 
 echo Building Common ....
 "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe"  ..\Pitara\CommonProject\CommonProject.sln /t:Rebuild  /p:Configuration=Release /p:DefineConstants="NO_EXPIRY"
