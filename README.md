@@ -4,7 +4,7 @@ Pitara is Intelligent Photo Cataloging, Searching, and Tagging Tool. It is your 
 You can download the latest build from <a href="http://www.GetPitara.com" target="_blank">www.GetPitara.com</a> or use latest release from here.
 
 # Features
-We created a separate file to list [features](CONTRIBUTING.md).
+We created a separate file to list [features](FEATURES.md).
 
 # Disclosure 
 Pitara was a private project, that turned open source on Christmas of 2024. Please have patience while we turn it open source friendly. 
