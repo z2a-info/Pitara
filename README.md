@@ -1,7 +1,10 @@
 # Pitara
-Pitara is Intelligent Photo Cataloging, Searching, and Tagging Tool. It is your personal Google for photos, designed to organize, search, and tag your pictures efficiently right on your computer. Unlike cloud-based solutions, Pitara doesn’t upload your photos to the cloud.
+Pitara is Intelligent Photo Cataloging, Searching, and Tagging App on Windows.
 
-You can download the latest build from <a href="http://www.GetPitara.com" target="_blank">www.GetPitara.com</a> or use latest release from here.
+Designed to do everything right on your computer. Unlike cloud-based solutions, Pitara doesn’t upload your photos to the cloud. We are <a href="https://getpitara.com/en/anti-subscription/" target="_blank">anti-subscription</a>.
+
+
+You can download the latest build from <a href="http://www.GetPitara.com" target="_blank">www.GetPitara.com</a> or use the latest release from here.
 
 # Features
 We created a separate file to list [features](FEATURES.md).
