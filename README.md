@@ -8,3 +8,6 @@ You can download the latest build from <a href="http://www.GetPitara.com" target
 Pitara was a private project, that turned open source on Christmas of 2024. Please have patience while we turn it open source friendly. 
 
 Meanwhile if you have any questions - Please use this <a href="https://getpitara.com/en/home/contact-us" target="_blank">Contact us</a> page.
+
+## Contributing
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
