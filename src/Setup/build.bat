@@ -69,8 +69,18 @@ if ERRORLEVEL 1 goto :showerror
 "..\Pitara\PitaraApp\bin\Release\net48\Pitara.exe" hash %PITARA_HOME%\Pitara\PitaraApp\DownloadAndHashTemplate.txt
 if ERRORLEVEL 1 goto :showerror
 
+"..\Pitara\PitaraApp\bin\Release\net48\Pitara.exe" hash %PITARA_HOME%\Pitara\PitaraApp\DownloadAndHashTemplate.txt
+if ERRORLEVEL 1 goto :showerror
+
+"..\Pitara\PitaraApp\bin\Release\net48\Pitara.exe" downloadpage %PITARA_HOME%\Pitara\PitaraApp\Download-Pitara.template.md
+if ERRORLEVEL 1 goto :showerror
+
 echo Copying PitaraVersion.txt
 copy /y PitaraVersion.txt ..\build\
+if ERRORLEVEL 1 goto :showerror
+
+echo Copying Download-Pitara.md
+copy /y default.md ..\build\
 if ERRORLEVEL 1 goto :showerror
 
 echo Copying DownloadAndHash.txt

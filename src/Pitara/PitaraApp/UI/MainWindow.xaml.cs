@@ -129,6 +129,31 @@ namespace Pitara
                         System.Windows.Application.Current.Shutdown();
                     }
                 }
+                if (args[1].ToLower() == "downloadpage")
+                {
+                    try
+                    {
+                        string versionString = $"{CurrentVersionWrapper.GetVersion()} @{DateTime.Now.ToString()}";
+
+                        // GenerateDownloadAndHashFile(args[2].ToLower());
+                        var tempalteFileName = args[2].ToLower();
+                        var setupHash = GetHashFromFile($"sha256Setup.txt");
+                        var zipHash = GetHashFromFile($"sha256Zip.txt");
+                        var templateContent = File.ReadAllText(tempalteFileName);
+                        templateContent = templateContent.Replace("SHA256 Hash for setup:{}", string.Format($"SHA256: {setupHash}"));
+                        templateContent = templateContent.Replace("SHA256 Hash for portable:{}", string.Format($"SHA256: {zipHash}"));
+                        templateContent = templateContent.Replace("LastUpdated version and date time{}", versionString);
+                        File.WriteAllText("default.md", templateContent);
+                    }
+                    catch (Exception eX)
+                    {
+                        _logger.SendLogWithException("Can't dump Download-Pitara.md", eX);
+                    }
+                    finally
+                    {
+                        System.Windows.Application.Current.Shutdown();
+                    }
+                }
             }
             // Initial UI state
             MetaEditBox.IsEnabled = false;
