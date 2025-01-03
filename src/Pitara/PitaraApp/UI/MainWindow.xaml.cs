@@ -143,6 +143,9 @@ namespace Pitara
                         templateContent = templateContent.Replace("SHA256 Hash for setup:{}", string.Format($"SHA256: {setupHash}"));
                         templateContent = templateContent.Replace("SHA256 Hash for portable:{}", string.Format($"SHA256: {zipHash}"));
                         templateContent = templateContent.Replace("LastUpdated version and date time{}", versionString);
+                        var changelog = File.ReadAllText($"Changelog.md");
+                        templateContent = templateContent.Replace("Changelog.md.contents:{}", changelog);
+
                         File.WriteAllText("default.md", templateContent);
                     }
                     catch (Exception eX)

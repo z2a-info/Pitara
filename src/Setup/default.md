@@ -1,6 +1,6 @@
 ## Download Pitara
 
-!!! **Last update:** 2.0.9134.21199 @1/3/2025 11:46:52 AM
+!!! **Last update:** 2.0.9134.24344 @1/3/2025 1:31:43 PM
 
 ### Supported Platform
 Microsoft Windows 10 or above.
@@ -9,8 +9,8 @@ Pitara is free of malicious code. Verify via the online virus check or build it 
 
 | **Version** | **SHA256**                                                                 | **Virus Check** |
 |-------------|---------------------------------------------------------------------------|-----------------|
-| **[Installer](./build/PitaraSetup.zip)** | `SHA256: 9cdd5100de23cbbae5bd3c04cfab5d48b369fa8a12c898e4493982a496328d7a` |  [Virus Check](https://www.virustotal.com/gui/url/d608ed05d496d377fb7886afbd7b5a94d2e1e0603e51d1c4a2096561ecb52011?target=_blank) |
-| **[Portable](./build/Pitara.zip)** | `SHA256: 967f6c2012c9519eb1ef97b4ff7fc3e5710be18ed105944b4e0a7c84291f8c6b` | [Virus Check](https://www.virustotal.com/gui/url-analysis/u-b0f9d4b4df4774644491599defd8ca9996b69bbd5fe2ff4c42ca6523ef91fce4-1735933282?target=_blank) |
+| **[Installer](./build/PitaraSetup.zip)** | `SHA256: c620462995685e5994a177a1c1c7160403e33aa9ee5738131f3e138c23d11232` |  [Virus Check](https://www.virustotal.com/gui/url/d608ed05d496d377fb7886afbd7b5a94d2e1e0603e51d1c4a2096561ecb52011?target=_blank) |
+| **[Portable](./build/Pitara.zip)** | `SHA256: ceba95b148262649ec165691488af1bdf25ef4d1891ec39069d4b695e1c7079f` | [Virus Check](https://www.virustotal.com/gui/url/11bf82d5bfc7027dd5233b86cedbffa2a6d1ccc2eacdbfa9a99c2e74f8c7e7ee?target=_blank) |
 
 ---
 
@@ -21,10 +21,9 @@ Pitara is free of malicious code. Verify via the online virus check or build it 
 |--------------|--------------|
 |![Moreinfo](Moreinfo.jpg?cropResize=640,440)|![ContinueAnyway](ContinueAnyway.jpg?cropResize=640,440)|
 
-
 ---
 
-### Change Logs
+### Change Logs of Pitara
 
 #### Version 2.0.
 - Now search with height range. Search like `10kfeetPlus` to see photos taken above 10,000 feet and above.
@@ -57,3 +56,4 @@ Pitara is free of malicious code. Verify via the online virus check or build it 
 - Fixed a bug where if one view failed to load, it failed all views.
 - Beautified search results with better theme colors.
 - Minor UI glitches and improvements.
+
