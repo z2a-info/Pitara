@@ -1,8 +1,9 @@
 ﻿---
 
-### Change Logs of Pitara
+### Change Logs 
 
 #### Version 2.0.
+- Pitara is now open source and available at GitHub
 - Now search with height range. Search like `10kfeetPlus` to see photos taken above 10,000 feet and above.
 - Natural language-like search: `From 2002 in January on Weekend at 9 AM`.
 - Holiday tab improved for performance.
