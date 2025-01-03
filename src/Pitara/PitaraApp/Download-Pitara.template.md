@@ -1,6 +1,6 @@
 ## Download Pitara
 
-!!! **Last update:** 2.0.9133.35952 @1/2/2025 7:58:39 PM
+!!! **Last update:** LastUpdated version and date time{}
 
 ### Supported Platform
 Microsoft Windows 10 or above.
@@ -9,8 +9,8 @@ Pitara is free of malicious code. Verify via the online virus check or build it 
 
 | **Version** | **SHA256**                                                                 | **Virus Check** |
 |-------------|---------------------------------------------------------------------------|-----------------|
-| **[Installer](./build/PitaraSetup.zip)** | `SHA256: ca535e6416dd89d6288bf299593dd5ad92c31def58b4745d95a0b3fe14fe76f4` |  [Virus Check](https://www.virustotal.com/gui/url/74b1185c4b8bd60a129500684910f9ff5433cd71fbf7b9279c4b99840ec20197/detection?target=_blank) |
-| **[Portable](./build/Pitara.zip)** | `SHA256: b4599b4aac4fa52f7501efebb92af0a4292fa13cdbb7569e7e59c4001e45597e` | [Virus Check](https://www.virustotal.com/gui/url/660c70ccb3594d91a7e798f9d3c724e01fe4f1aede09c33b180d55d421ea1ae5/detection?target=_blank) |
+| **[Installer](./build/PitaraSetup.zip)** | `SHA256 Hash for setup:{}` |  [Virus Check](https://www.virustotal.com/gui/url/74b1185c4b8bd60a129500684910f9ff5433cd71fbf7b9279c4b99840ec20197/detection?target=_blank) |
+| **[Portable](./build/Pitara.zip)** | `SHA256 Hash for portable:{}` | [Virus Check](https://www.virustotal.com/gui/url/660c70ccb3594d91a7e798f9d3c724e01fe4f1aede09c33b180d55d421ea1ae5/detection?target=_blank) |
 
 ---
 
