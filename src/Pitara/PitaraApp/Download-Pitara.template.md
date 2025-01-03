@@ -9,8 +9,8 @@ Pitara is free of malicious code. Verify via the online virus check or build it 
 
 | **Version** | **SHA256**                                                                 | **Virus Check** |
 |-------------|---------------------------------------------------------------------------|-----------------|
-| **[Installer](./build/PitaraSetup.zip)** | `SHA256 Hash for setup:{}` |  [Virus Check](https://www.virustotal.com/gui/url/74b1185c4b8bd60a129500684910f9ff5433cd71fbf7b9279c4b99840ec20197/detection?target=_blank) |
-| **[Portable](./build/Pitara.zip)** | `SHA256 Hash for portable:{}` | [Virus Check](https://www.virustotal.com/gui/url/660c70ccb3594d91a7e798f9d3c724e01fe4f1aede09c33b180d55d421ea1ae5/detection?target=_blank) |
+| **[Installer](./build/PitaraSetup.zip)** | `SHA256 Hash for setup:{}` |  [Virus Check](https://www.virustotal.com/gui/url/d608ed05d496d377fb7886afbd7b5a94d2e1e0603e51d1c4a2096561ecb52011?target=_blank) |
+| **[Portable](./build/Pitara.zip)** | `SHA256 Hash for portable:{}` | [Virus Check](https://www.virustotal.com/gui/url-analysis/u-b0f9d4b4df4774644491599defd8ca9996b69bbd5fe2ff4c42ca6523ef91fce4-1735933282?target=_blank) |
 
 ---
 
