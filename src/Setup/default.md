@@ -1,6 +1,6 @@
 ## Download Pitara
 
-!!! **Last update:** 2.0.9134.24344 @1/3/2025 1:31:43 PM
+!!! **Last update:** @January 3rd, 2025 7:48 PM PST Version: 2.0.9134.35649
 
 ### Supported Platform
 Microsoft Windows 10 or above.
@@ -9,8 +9,8 @@ Pitara is free of malicious code. Verify via the online virus check or build it 
 
 | **Version** | **SHA256**                                                                 | **Virus Check** |
 |-------------|---------------------------------------------------------------------------|-----------------|
-| **[Installer](./build/PitaraSetup.zip)** | `SHA256: c620462995685e5994a177a1c1c7160403e33aa9ee5738131f3e138c23d11232` |  [Virus Check](https://www.virustotal.com/gui/url/d608ed05d496d377fb7886afbd7b5a94d2e1e0603e51d1c4a2096561ecb52011?target=_blank) |
-| **[Portable](./build/Pitara.zip)** | `SHA256: ceba95b148262649ec165691488af1bdf25ef4d1891ec39069d4b695e1c7079f` | [Virus Check](https://www.virustotal.com/gui/url/11bf82d5bfc7027dd5233b86cedbffa2a6d1ccc2eacdbfa9a99c2e74f8c7e7ee?target=_blank) |
+| **[Installer](./build/PitaraSetup.zip)** | `SHA256: 77474051b4894d3bbc8a6b9fa32a651bbc65c7c7737180a48e7e46a73b1283ea` |  [Virus Check](https://www.virustotal.com/gui/url/d608ed05d496d377fb7886afbd7b5a94d2e1e0603e51d1c4a2096561ecb52011?target=_blank) |
+| **[Portable](./build/Pitara.zip)** | `SHA256: 6ae88eb9df03fb29b875689013e2f9831107b9bc8e617320ee038bc5f57bc076` | [Virus Check](https://www.virustotal.com/gui/url/11bf82d5bfc7027dd5233b86cedbffa2a6d1ccc2eacdbfa9a99c2e74f8c7e7ee?target=_blank) |
 
 ---
 
@@ -23,9 +23,10 @@ Pitara is free of malicious code. Verify via the online virus check or build it 
 
 ---
 
-### Change Logs of Pitara
+### Change Logs 
 
 #### Version 2.0.
+- Pitara is now open source and available at GitHub
 - Now search with height range. Search like `10kfeetPlus` to see photos taken above 10,000 feet and above.
 - Natural language-like search: `From 2002 in January on Weekend at 9 AM`.
 - Holiday tab improved for performance.
