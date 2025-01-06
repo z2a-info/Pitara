@@ -1,7 +1,7 @@
 # Pitara
 Pitara is Intelligent Photo Cataloging, Searching, and Tagging App on Windows.
 
-Designed to do everything right on your computer. Unlike cloud-based solutions, Pitara doesn’t upload your photos to the cloud. We are <a href="https://getpitara.com/en/anti-subscription/" target="_blank">anti-subscription</a>.
+Designed to do everything right on your computer. Unlike cloud-based solutions, Pitara doesn’t upload your photos to the cloud. We are <a href="https://getpitara.com/en/we-are-anti-subscription" target="_blank">anti-subscription</a>.
 
 
 You can download the latest build from <a href="http://www.GetPitara.com" target="_blank">www.GetPitara.com</a> or use the latest release from here.
