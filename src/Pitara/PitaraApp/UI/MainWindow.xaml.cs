@@ -129,6 +129,34 @@ namespace Pitara
                         System.Windows.Application.Current.Shutdown();
                     }
                 }
+                if (args[1].ToLower() == "downloadpage")
+                {
+                    try
+                    {
+                        //string versionString = $"@{DateTime.Now.ToString()} Version: {CurrentVersionWrapper.GetVersion()}";
+                        var versionString = $"{GetProperlyFormattedTimeZone()} Version: {CurrentVersionWrapper.GetVersion()}";
+                        // GenerateDownloadAndHashFile(args[2].ToLower());
+                        var tempalteFileName = args[2].ToLower();
+                        var setupHash = GetHashFromFile($"sha256Setup.txt");
+                        var zipHash = GetHashFromFile($"sha256Zip.txt");
+                        var templateContent = File.ReadAllText(tempalteFileName);
+                        templateContent = templateContent.Replace("SHA256 Hash for setup:{}", string.Format($"{setupHash}"));
+                        templateContent = templateContent.Replace("SHA256 Hash for portable:{}", string.Format($"{zipHash}"));
+                        templateContent = templateContent.Replace("LastUpdated version and date time{}", versionString);
+                        var changelog = File.ReadAllText($"Changelog.md");
+                        templateContent = templateContent.Replace("Changelog.md.contents:{}", changelog);
+
+                        File.WriteAllText("default.md", templateContent);
+                    }
+                    catch (Exception eX)
+                    {
+                        _logger.SendLogWithException("Can't dump Download-Pitara.md", eX);
+                    }
+                    finally
+                    {
+                        System.Windows.Application.Current.Shutdown();
+                    }
+                }
             }
             // Initial UI state
             MetaEditBox.IsEnabled = false;
@@ -163,7 +191,47 @@ namespace Pitara
             var controller = await MainViewModelController.CreateController(_viewModel, _logger, _luceneService, _userSettings, _appSettings, _operatingSettings, _license);
 
         }
+        static string GetTimeZoneAbbreviation(TimeZoneInfo timeZone, DateTime dateTime)
+        {
+            // Determine if it's daylight saving time or standard time
+            bool isDaylight = timeZone.IsDaylightSavingTime(dateTime);
 
+            // Use the appropriate name (DaylightName or StandardName)
+            string timeZoneName = isDaylight ? timeZone.DaylightName : timeZone.StandardName;
+
+            // Extract the abbreviation from the time zone name
+            string[] parts = timeZoneName.Split(' ');
+            string abbreviation = string.Join("", Array.ConvertAll(parts, part => part[0]));
+
+            return abbreviation.ToUpper();
+        }
+        static string GetDaySuffix(int day)
+        {
+            if (day >= 11 && day <= 13) return "th"; // Special case for 11th, 12th, 13th
+            switch (day % 10)
+            {
+                case 1: return "st";
+                case 2: return "nd";
+                case 3: return "rd";
+                default: return "th";
+            }
+        }
+        static string GetProperlyFormattedTimeZone()
+        {
+            DateTime now = DateTime.Now; // Current local time
+            TimeZoneInfo localZone = TimeZoneInfo.Local;
+
+            int day = now.Day;
+            string daySuffix = GetDaySuffix(day);
+
+
+            string timeZoneAbbreviation = GetTimeZoneAbbreviation(localZone, now);
+            //string formattedTime = $"{now:MM-dd-yyy hh:mm tt} {timeZoneAbbreviation}";
+            string finalFormattedDateTime = $"{now:MMMM} {day}{daySuffix}, {now:yyyy} {now:h:mm tt} {timeZoneAbbreviation}";
+
+
+            return finalFormattedDateTime;
+        }
         private void GenerateDownloadAndHashFile(string templatePath)
         {
             var setupHash = GetHashFromFile($"sha256Setup.txt");

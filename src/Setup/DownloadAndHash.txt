@@ -18,7 +18,7 @@ td, th {
     </td>
     <td >
     <font style="font-size: 0.85em;">
-    SHA256: 4f15df8e7d2d5c49f378a6cb271b0ca19088549c4910ccd80cc5a0be1dfed83e
+    SHA256: ee36be1fea4c4fd92a94b0659e7595e712bc22956d1c335075dbcc67663c0e60
     </font>
     </td>
     <td >
@@ -31,7 +31,7 @@ td, th {
     </td>
     <td >
     <font style="font-size: 0.85em;">
-    SHA256: 9f48f034667608519ad76d6995a3f2e96116979b67ace23aa8939da6ec5e66c2
+    SHA256: 22539884e19a47e18b2082aac06dc5e7e804016cf2e92ee2506a70cb48fd5d34
     </font>
     </td>
     <td >

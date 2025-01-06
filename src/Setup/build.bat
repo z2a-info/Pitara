@@ -35,7 +35,7 @@ echo Building setup ...
 if ERRORLEVEL 1 goto :showerror
 
 echo Copying Changelogs.
-copy /y "%PITARA_HOME%\Pitara\PitaraApp\Changelog.html" ..\Build
+copy /y "%PITARA_HOME%\Pitara\PitaraApp\Changelog.md" ..\Build
 if ERRORLEVEL 1 goto :showerror
 
 echo Creating the zip
@@ -69,26 +69,26 @@ if ERRORLEVEL 1 goto :showerror
 "..\Pitara\PitaraApp\bin\Release\net48\Pitara.exe" hash %PITARA_HOME%\Pitara\PitaraApp\DownloadAndHashTemplate.txt
 if ERRORLEVEL 1 goto :showerror
 
+"..\Pitara\PitaraApp\bin\Release\net48\Pitara.exe" hash %PITARA_HOME%\Pitara\PitaraApp\DownloadAndHashTemplate.txt
+if ERRORLEVEL 1 goto :showerror
+
+
+copy /y "%PITARA_HOME%\Pitara\PitaraApp\Changelog.md" ..\setup
+if ERRORLEVEL 1 goto :showerror
+
+"..\Pitara\PitaraApp\bin\Release\net48\Pitara.exe" downloadpage %PITARA_HOME%\Pitara\PitaraApp\Download-Pitara.template.md
+if ERRORLEVEL 1 goto :showerror
+
 echo Copying PitaraVersion.txt
 copy /y PitaraVersion.txt ..\build\
 if ERRORLEVEL 1 goto :showerror
 
+echo Copying Download-Pitara.md
+copy /y default.md ..\build\
+if ERRORLEVEL 1 goto :showerror
+
 echo Copying DownloadAndHash.txt
 copy /y DownloadAndHash.txt ..\build\
-if ERRORLEVEL 1 goto :showerror
-
-echo Copying to local share for testing
-
-copy /y PitaraVersion.txt \\mars\FileXfer\PitaraStuff\LatestBuild
-if ERRORLEVEL 1 goto :showerror
-
-copy /y "%PITARA_HOME%\Pitara\PitaraApp\Changelog.html" \\mars\FileXfer\PitaraStuff\LatestBuild
-if ERRORLEVEL 1 goto :showerror
-
-copy /y %PITARA_HOME%\Pitara\PitaraApp\bin\Release\net48\Pitara.exe \\mars\FileXfer\PitaraStuff\LatestBuild
-if ERRORLEVEL 1 goto :showerror
-
-copy /y ..\build\PitaraSetup.exe \\mars\FileXfer\PitaraStuff\LatestBuild
 if ERRORLEVEL 1 goto :showerror
 
 
