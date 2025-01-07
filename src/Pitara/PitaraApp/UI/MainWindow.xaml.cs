@@ -423,7 +423,7 @@ namespace Pitara
         // Help
         private void MenuItem_Help(object sender, RoutedEventArgs e)
         {
-            Utils.ProcessStartWrapperAsync("https://getpitara.com/en/pitara-user-guide");
+            Utils.ProcessStartWrapperAsync("https://getpitara.com/en/pitara-help/user-guide");
         }
 
         private void ListView_Loaded(object sender, RoutedEventArgs e)

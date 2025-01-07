@@ -176,7 +176,7 @@ namespace Pitara
                         Utils.DisplayMessageBoxAskYesNo("Newer version of Pitara is available to download. Do you want to download newer version instead?")
                         == System.Windows.MessageBoxResult.Yes)
                     {
-                        Utils.ProcessStartWrapperAsync("https://getpitara.com/en/home/download/");
+                        Utils.ProcessStartWrapperAsync("https://getpitara.com/en/download");
                         Application.Current.Shutdown();
                     }
                 }
