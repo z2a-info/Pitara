@@ -14,7 +14,7 @@ namespace CommonProject.Src
             {
                 // return new Version("0.0.0.0");
                 HttpClient client = new HttpClient();
-                HttpResponseMessage result = await client.GetAsync(new Uri("https://getpitara.com/setup/PitaraVersion.txt"));
+                HttpResponseMessage result = await client.GetAsync(new Uri("https://getpitara.com/en/download-pitara/build/PitaraVersion.txt"));
                 if (!result.IsSuccessStatusCode)
                 {
                     return new Version();

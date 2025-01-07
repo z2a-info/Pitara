@@ -92,7 +92,7 @@ namespace CommonProject.Src
             using (var client = new HttpClient())
             {
                 var response = await client.PostAsync(
-                    "https://GetPitara.com/license/activate.php",
+                    "https://GetPitara.com/license-server/activate.php",
                      new StringContent(postObject, Encoding.UTF8, "application/json"));
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
