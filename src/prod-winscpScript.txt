@@ -1,4 +1,4 @@
-open bitnami@35.164.226.194 -privatekey=%GROOT%\JalbumSettings\LAMPPrivate.ppk -hostkey=LIGmONbXlFQyYUMovIUeAgySjDnXuYKq3aAA9Z3YcPw
+open %FTP_USER% -privatekey=%GROOT%\JalbumSettings\LAMPPrivate.ppk -hostkey=LIGmONbXlFQyYUMovIUeAgySjDnXuYKq3aAA9Z3YcPw
 cd /opt/bitnami/apache/htdocs/getpitara/en/user/pages/02.Download-Pitara
 put %PITARA_HOME%\Build\default.md
 cd /opt/bitnami/apache/htdocs/getpitara/en/user/pages/02.Download-Pitara/build

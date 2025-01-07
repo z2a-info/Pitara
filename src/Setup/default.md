@@ -7,7 +7,7 @@ routes:
 
 ## Download Pitara
 
-!!! **Last update:** January 6th, 2025 9:51 PM PST Version: 2.0.9137.39340
+!!! **Last update:** January 6th, 2025 10:09 PM PST Version: 2.0.9137.39863
 
 ### Supported Platform
 Microsoft Windows 10 or above.
@@ -19,14 +19,14 @@ Pitara is free of malicious code. Verify via the online virus check or build it 
 | | | |
 |----------:|:--||--:|
 | ![setup](14465-256x256x32.png?cropResize=48,48) | **[PitaraSetup.zip](./build/PitaraSetup.zip)** |  [(Virus check)](https://www.virustotal.com/gui/url/d608ed05d496d377fb7886afbd7b5a94d2e1e0603e51d1c4a2096561ecb52011?target=_blank)|
-> SHA256: `203f4e37139bb8f413acda2899808abea16ef8d06086ac399554fff5f36f0a56`
+> SHA256: `b3cc3eb0127704f3ae28b1730654f43028b987ceb3669fbf38f96669d3388baf`
 
 
 #### Portable setup
 | | | 
 |----------:|:--||--:|
 |![portable](winzip-data-compression-computer-software-rar-zipper-27668328ba3f0a09198694e9196740b1.png?cropResize=48,48) | **[Pitara.zip](./build/Pitara.zip)** | [(Virus check)](https://www.virustotal.com/gui/url/11bf82d5bfc7027dd5233b86cedbffa2a6d1ccc2eacdbfa9a99c2e74f8c7e7ee?target=_blank)|
-> SHA256: `f9a56820f08d8cdb8599fc333b9367a490f6b879556f143c1f75d2c53266c4a9`
+> SHA256: `9255391f08a558207ebf647f2e21e90e1ade09aa27414d067ea91156b207cc58`
 
 ---
 
